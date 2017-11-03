@@ -1,11 +1,20 @@
 # Barbossa
 ---
-## Make sure to add font
+
 How to inject:
+
 Open in Xcode
+
 Compile
+
 Put in injector folder
+
 open terminal and do "sudo ./osxinj csgo_osx64 libvHook.dylib"
+
+---
+
+If you have any problems create an issue
+
 ---
 
 Q/A
