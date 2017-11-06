@@ -21,7 +21,7 @@ Q/A
 
 Q: Menu key?
 
-A: Insert, LALT, RALT.
+A: Insert
 
 Q: Whats your steam
 
