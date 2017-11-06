@@ -2,13 +2,85 @@
 //  antiaim.cpp
 //  vHook
 //
-//  Created by Finn Le var on 14/10/17.
-//  Copyright © 2017 ViKiNG. All rights reserved.
-//
 
-#include "../Hacks/antiaim.h"
+#include "antiaim.h"
 
 Vector atTargets;
+
+void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
+{
+    
+    if(vars.aimbot.fakewalk)
+        return;
+    
+    if(!pEngine->IsInGame())
+        return;
+    
+    C_BaseEntity* localplayer = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if(!localplayer)
+        return;
+    
+    if(!pInputSystem->IsButtonDown(KEY_LALT))
+        return;
+    
+    static int iChoked = -1;
+    iChoked++;
+    
+    if (iChoked < 3)
+    {
+        *bSendPacket = false;
+        cmd->tick_count += 10;
+        cmd += 7 + cmd->tick_count % 2 ? 0 : 1;
+        cmd->buttons |= local->GetMoveType() == IN_BACK;
+        cmd->forwardmove = cmd->sidemove = 0.f;
+    }
+    else
+    {
+        *bSendPacket = true;
+        iChoked = -1;
+        pGlobals->frametime *= (local->GetVelocity().Length2D()) / 1.f;
+        cmd->buttons |= local->GetMoveType() == IN_FORWARD;
+    }
+    
+    
+}
+
+void Moonwalk(CUserCmd* cmd)
+{
+    if(vars.misc.moonwalk)
+        return;
+    
+    if(!pEngine->IsInGame())
+        return;
+    
+    C_BaseEntity* localplayer = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if(!localplayer)
+        return;
+    
+    if(cmd->forwardmove > 0)
+    {
+        cmd->buttons |= IN_BACK;
+        cmd->buttons &= ~IN_FORWARD;
+    }
+    
+    if(cmd->forwardmove < 0)
+    {
+        cmd->buttons |= IN_FORWARD;
+        cmd->buttons &= ~IN_BACK;
+    }
+    
+    if(cmd->sidemove < 0)
+    {
+        cmd->buttons |= IN_MOVERIGHT;
+        cmd->buttons &= ~IN_MOVELEFT;
+    }
+    
+    if(cmd->sidemove > 0)
+    {
+        cmd->buttons |= IN_MOVELEFT;
+        cmd->buttons &= ~IN_MOVERIGHT;
+    }
+}
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {
@@ -309,7 +381,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             int random2 = rand() % 1000;
             static bool dir;
             static float current_y = cmd->viewangles.y;
-            IClientEntity* pLocal = local;
             float server_time = local->GetTickBase() * pGlobals->interval_per_tick;
             
             if (bSendPacket) {
@@ -356,7 +427,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             if (bSendPacket)
                 cmd->viewangles.y += bFlipYaw ? 135.f : -135.f;
             else
-                cmd->viewangles.y -= local->GetLowerBodyYawTarget() + bFlipYaw ? -135.f : 135.f;
+                cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? -135.f : 135.f);
         }
         if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLowerBody135) {
             int flip = (int)floorf(pGlobals->curtime / 1.1) % 2;
@@ -377,7 +448,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
                 else
                 {
-                    cmd->viewangles.y -= local->GetLowerBodyYawTarget() + bFlipYaw ? 135.f : -135.f;
+                    cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 135.f : -135.f);
                 }
             }
             else
@@ -386,7 +457,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             }
         }
         if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeInverseRotation) {
-            IClientEntity* pLocal = local;
             float server_time = local->GetTickBase() * pGlobals->interval_per_tick;
             
             if (bSendPacket)
@@ -439,7 +509,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLBY) {
             static bool flip_lby = false;
             flip_lby = !flip_lby;
-            IClientEntity* pLocal = local;
             float server_time = local->GetTickBase() * pGlobals->interval_per_tick;
             
             if (flip_lby) {
@@ -485,7 +554,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     }
                     else
                     {
-                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + bFlipYaw ? 90.f : -90.f;
+                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 90.f : -90.f);
                     }
                 }
             }

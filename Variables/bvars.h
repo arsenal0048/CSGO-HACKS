@@ -1,59 +1,73 @@
 #pragma once
 
-class ccombobox
+class ccombobox // this class only handles all the open checks for the combo boxes, nothing more
 {
 public:
-    /* this class only handles all the open checks for the combo boxes, nothing more. */
-    bool esp_opend;
-    bool hitbox_opend;
+    
+    // Anti aim
     bool aaY_opend;
     bool aaX_opend;
     bool FaaY_opend;
+    
+    // Chams
     bool hands_opend;
     bool weapons_opend;
     bool players_opend;
-    bool sky_opend;
-    bool mCol_opend;
+
+    // Menu
     bool colors_opend;
+    
+    // Misc
     bool fakelag_opend;
+    
+    // For aa corrections
     bool playerlist_opend_x[64];
     bool playerlist_opend_y[64];
     
+    // For text input
     bool misc_clantag, misc_name, misc_changename;
-    int inputIndex = 0;
-};
 
-// Set up your fucking settings here.
+};
 
 class cVariables : public ccombobox
 {
 public:
+    
     bool menu               = false;
-    int buttonPadding       = 24;
-    int tabIndex;
-    int menueffect          = 0;
+    int  buttonPadding      = 24;
+    int  playerTab          = 0;
+    int  inputIndex         = 0;
     
     class cAimbot
     {
     public:
+        
         bool enabled    = false;        // Enable
+        
         bool silent     = false;        // Silent Aim ob
-        int fov         = 20;           // Aimbot Fov
-        int hitbox      = 0;            // Hitbox
-        int hitboxType  = 0;            // Hitbox for combo
-        int pointscale  = 0;            // Pointscale
+        
+        int  fov         = 20;          // Aimbot Fov
+        int  hitbox      = 0;           // Hitbox
+        int  hitboxType  = 0;           // Hitbox for combo
+        
+        int  pointscale  = 0;           // Pointscale
         bool trigger    = true;         // Will shoot when an enemy is in your crosshair
+        
         bool prediction = false;        // Player prediction
         bool selfpred   = false;        // Self prediction
+        
         bool autowall   = false;        // Shoots through walls if calulated damage is higher than set amount
-        int mindmg      = 20;           // Autowall min damage
+        int  mindmg      = 20;          // Autowall min damage
         bool hitscan    = false;        // Hitscan
+        
         bool autoshoot  = false;        // Shoots for you
         bool autoscope  = false;        // Autoscope
         bool autopistol = false;        // Pistol is like AK
         bool autocrouch = false;        // Crouch when something is in fov
         bool autostop   = false;        // Stops when something is in fov
+        
         bool fakewalk   = false;        // Fake walk
+        
         bool rcs        = false;        // Recoil control system
         int rcsf        = 0;            // Recoil control
 
@@ -62,12 +76,12 @@ public:
     class cVisuals
     {
     public:
+        
         bool enabled    = false;        // Enable
         
         bool enemyonly  = false;        // Enemy only
         bool visonly    = false;        // Visual only
         
-
         bool box        = false;        // Box ESP
         bool name       = false;        // Name ESP
         bool health     = false;        // Health Bar
@@ -75,16 +89,10 @@ public:
         bool armour     = false;        // Armour Bar
         bool skeleton   = false;        // Skeleton ESP
         bool snapline   = false;        // Snaplines obv
-        bool headhitbox = false;        // Snaplines but goes to head
         bool cash       = false;        // Cash ESP
-        bool rescuing   = false;        // Rescuing ESP(Hostage)
-        bool Scoped     = false;        // Scoped ESP(Hostage)
         bool bomb       = false;        // Bomb Timer
-        bool dlights    = false;        // Dlight (Thnx Rocco)
-        bool rccrosshair= false;        // Recoil Crosshair (Shows but doesn't move)
-        bool skybox     = false;        // Changes Skybox (Currently does not work)
-        int skyType     = 12;           // Check skybox.cpp ^
-
+        bool dlights    = false;        // Dlight 
+        bool rcrosshair = false;        // Recoil Crosshair (Shows but doesn't move)
         
         // Chams
         bool chams      = false;        // Player Chams
@@ -104,6 +112,7 @@ public:
     class cMisc
     {
     public:
+        
         bool enabled        = true;     // Enabled
         
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
@@ -131,7 +140,6 @@ public:
         int fakelagmode     = 0;        // 0 Normal - 1 Adaptive
         bool adaptive       = false;    //
         
-        bool nosky          = false;    // No Sky
         bool worldpaint     = false;    // World Paint
         bool changesky      = false;    // Changes Sky
         
@@ -155,10 +163,8 @@ public:
     class cColors
     {
     public:
-        int tab;
-        int cColor;
-        int tabb = 0;
-        int combo = 0;
+        
+        int combo   = 0;
         
         Color ctchams;
         Color tchams;
@@ -182,7 +188,6 @@ public:
         
     }colors;
     
-    int playerTab = 0;
 };
 
 struct Corrections
@@ -196,7 +201,6 @@ struct Corrections
     int dropdown_y = 0;
 };
 
-extern Corrections gCorrections[64];
-
 
 extern cVariables vars;
+extern Corrections gCorrections[64];

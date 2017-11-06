@@ -1,13 +1,19 @@
 #include "main.h"
 
-void hkOverrideView(void* thisptr, CViewSetup& setup) {
+void hkOverrideView(void* thisptr, CViewSetup& setup)
+{
     auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
-    if(vars.misc.enabled && vars.misc.fov > 0) {
-        if(local && !local->IsScoped()) {
-            setup.fov += vars.misc.fov;
-        }
+    if(vars.misc.enabled && vars.misc.fov > 0)
+    {
+        if(!local)
+            return;
+        
+        if(local->IsScoped())
+            return;
+        
+        setup.fov += vars.misc.fov;
     }
     
-    createmovehook->GetOriginalMethod<tOverrideView>(19)(thisptr, setup);
+    createmoveVMT->GetOriginalMethod<tOverrideView>(19)(thisptr, setup);
 }

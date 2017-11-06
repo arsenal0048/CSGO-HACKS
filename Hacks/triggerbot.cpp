@@ -13,7 +13,7 @@ void DoTrigger(CUserCmd *Cmd)
             return;
         
         
-        C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(LocalPlayer->GetActiveWeapon());
+        C_BaseCombatWeapon* activeWeapon = GetActiveWeapon(LocalPlayer);
         
         if (!activeWeapon || activeWeapon->GetAmmo() == 0)
             return;

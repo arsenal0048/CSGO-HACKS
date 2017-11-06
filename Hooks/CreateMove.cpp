@@ -2,34 +2,41 @@
 
 #include "../Hacks/aimbot.h"
 #include "../Hacks/antiaim.h"
+#include "../Hacks/autoshoot.h"
 #include "../Hacks/bhop.h"
 #include "../Hacks/clantag.h"
 #include "../Hacks/spammer.h"
 #include "../Hacks/triggerbot.h"
-#include "../Hacks/fakewalk.h"
-#include "../Hacks/airstuck.h"
-#include "../Hacks/recoilcrosshair.h"
-#include "../Hacks/moonwalk.h"
-#include "../Hacks/showrank.h"
-#include "../Hacks/rcs.h"
-#include "../Hacks/smoothing.h"
 
 Vector tpangles;
 bool* bSendPacket = nullptr;
 
-void MakeNoRecoil(C_BaseEntity* local, CUserCmd* cmd)
+void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
 {
-    if(!vars.misc.enabled)
+    if(!vars.misc.norecoil && !vars.aimbot.rcs)
         return;
     
-    if(!vars.misc.norecoil)
-        return;
+    Vector punch = local->GetPunchAngles() * 2.f;
     
-    if(cmd->buttons & IN_ATTACK)
+    if(vars.misc.norecoil)
     {
-        Vector localVec = local->GetPunchAngles() * 2.f;
-        cmd->viewangles.x -= localVec.x;
-        cmd->viewangles.y -= localVec.y;
+        if(cmd->buttons & IN_ATTACK)
+        {
+            
+            cmd->viewangles.x -= punch.x;
+            cmd->viewangles.y -= punch.y;
+        }
+        return;
+    }
+    
+    if(vars.aimbot.rcs)
+    {
+        if(cmd->buttons & IN_ATTACK)
+        {
+            cmd->viewangles.x -= punch.x * (2.f / 100.f * (vars.aimbot.rcsf / 2));
+            cmd->viewangles.y -= punch.y * (2.f / 100.f * (vars.aimbot.rcsf / 2));
+        }
+        return;
     }
     
 }
@@ -48,87 +55,117 @@ void ChangeName(const char* szName)
     cvar_name->SetValue(szName);
 }
 
-void MakeAutoPistolas(CUserCmd* cmd, C_BaseCombatWeapon* weapon)
+void Airstuck(CUserCmd* cmd)
 {
-    if(!vars.aimbot.autopistol)
+    if(!vars.misc.airstuck)
         return;
     
-    if(!weapon->IsPistol())
+    if(cmd->buttons & IN_ATTACK || cmd->buttons & IN_ATTACK2)
         return;
-        
+    
+    if(pInputSystem->IsButtonDown(KEY_Z))
+        cmd->tick_count = 16777216;
+}
+
+void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
+{
+    if (!vars.misc.fakelag)
+        return;
+    
+    if(!local)
+        return;
+    
+    if(!local->GetAlive())
+        return;
+    
+    if (local->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
+        return;
+    
     if (cmd->buttons & IN_ATTACK)
     {
-        static bool bAttack = false;
-        
-        if (bAttack)
-            cmd->buttons |= IN_ATTACK;
-        else
-            cmd->buttons &= ~IN_ATTACK;
-        
-        bAttack = !bAttack;
+        sendpacket = true;
+        return;
     }
+    
+    static int FakelagTick;
+    int ticksMax = 14;
+    
+    if (FakelagTick >= ticksMax)
+    {
+        sendpacket = true;
+        FakelagTick = 0;
+    }
+    
+    
+    if(vars.misc.fakelagmode == 1)
+    {
+        sendpacket = FakelagTick < 16 - vars.misc.fakelagfactor;
+    }
+    
+    if(vars.misc.fakelagmode == 2)
+    {
+        auto velocity = local->GetVelocity();
+        velocity.z = 0.f;
+        
+        auto speed = velocity.Length();
+        auto distance_per_tick = speed * pGlobals->interval_per_tick;
+        
+        int choked_ticks = std::ceilf(64 / distance_per_tick);
+        int packetsToChoke = std::min<int>(choked_ticks, 15);
+        
+        sendpacket = FakelagTick < 16 - packetsToChoke;
+    }
+    
+    FakelagTick++;
 }
 
-
-void Predictiom(CUserCmd* cmd, C_BaseCombatWeapon* weapon, C_BaseEntity* local)
+void showranks(CUserCmd* cmd)
 {
-    float backup = pGlobals->frametime;
+    if(!vars.misc.showrank)
+        return;
     
-    pGlobals->frametime = pGlobals->interval_per_tick;
+    if(!(cmd->buttons & IN_SCORE))
+        return;
     
-    weapon->UpdateAccuracyPenalty();
-    
-    CMoveData data;
-    memset(&data, 0, sizeof(data));
-    
-    pPrediction->SetupMove(local, cmd, pMoveHelper, &data);
-    pGameMovement->ProcessMovement(local, &data);
-    pPrediction->FinishMove(local, cmd, &data);
-    
-    pGlobals->frametime = backup;
+    float input[3] = { 0.f };
+    MsgFunc_ServerRankRevealAll(input);
 }
 
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove, bool& sendpacket) {
-    
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, bool& sendpacket)
+{
     DoAutoStrafe(cmd, local);
     
     DoBhop(cmd, local);
     
-    Predictiom(cmd, weapon, local);
-    
     CirlceStrafe(local, cmd, vOldAngles);
     
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove, sendpacket); // Add some black magic shit.
+    DoAim(cmd, local, weapon, sendpacket);
                 
-    DoAntiaim(cmd, local, weapon, sendpacket); // Add antiaims.
+    DoAntiaim(cmd, local, weapon, sendpacket);
     
-    MakeAutoPistolas(cmd, weapon);
+    ContinuousPistols(cmd, weapon); // will continously fire pistol when trigger is  held
     
-    MakeNoRecoil(local, cmd); // Add norecoil
+    showranks(cmd);                 // Show all ranks
     
-    showranks(cmd); // Show all ranks
+    DoTrigger(cmd);                 // Add triggerbot
     
-    DoTrigger(cmd); // Add triggerbot
+    clantag();                      // Clantag
     
-    clantag(); // Clantag
+    DoSpammer();                    // Spammer
     
-    DoSpammer(); // Spammer
+    Fakewalk(cmd, local);           // Fakewalk
     
-    Fakewalk(cmd, local); // Fakewalk
+    Moonwalk(cmd);                  // Moonwalk
     
-    Moonwalk(cmd); // Moonwalk
+    Airstuck(cmd);                  // Airstuck
     
-    Airstuck(cmd); // Airstuck
+    RecoilControl(local, cmd);
     
-    LegitRecoil(local, cmd); // RCS
-    
-    if(draw->m_szChangedValue[2].length() > 0) // Name Changer.
+    if(draw->m_szChangedValue[2].length() > 0)                      // Name Changer
         ChangeName(draw->m_szChangedValue[2].c_str());
         
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
-    {
-        SetTag(draw->m_szChangedValue[3].c_str(), "Barbossa");
-    }
+        SetClanTag(draw->m_szChangedValue[3].c_str(), "Barbossa");
     
 }
 
@@ -136,7 +173,7 @@ bool bOnce = false;
 bool SendPacket = true;
 bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
-    createmovehook->GetOriginalMethod<tCreateMove>(25)(thisptr, flSampleInput, cmd);
+    createmoveVMT->GetOriginalMethod<tCreateMove>(25)(thisptr, flSampleInput, cmd);
     
     if(!cmd->command_number)
         return true;
@@ -167,7 +204,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         bOnce = true;
     }
     
-    auto* weapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(local->GetActiveWeapon());
+    C_BaseCombatWeapon* weapon = GetActiveWeapon(local);
     
     if(!weapon)
         return false;
@@ -186,7 +223,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket);
+        hacks(cmd, local, weapon, vOldAngles, *bSendPacket);
         
         // if(!vars.misc.antiuntrust)
         // ClampYaw(cmd->viewangles.y);

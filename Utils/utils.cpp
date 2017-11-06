@@ -1,15 +1,7 @@
 #include "main.h"
 
-void SinCos(float radians, float *sine, float *cosine)
+void AngleVectors(const Vector & angles, Vector * forward)
 {
-    double __cosr, __sinr;
-    __asm ("fsincos" : "=t" (__cosr), "=u" (__sinr) : "0" (radians));
-    
-    *sine = __sinr;
-    *cosine = __cosr;
-}
-
-void AngleVectors(const Vector & angles, Vector * forward) {
     Assert(s_bMathlibInitialized);
     Assert(forward);
     
@@ -26,7 +18,8 @@ void AngleVectors(const Vector & angles, Vector * forward) {
     forward->z = -sp;
 }
 
-void AngleVectors(const Vector & angles, Vector * forward, Vector * right, Vector * up) {
+void AngleVectors(const Vector & angles, Vector * forward, Vector * right, Vector * up)
+{
     float angle;
     static float sr, sp, sy, cr, cp, cy;
     
@@ -62,7 +55,8 @@ void AngleVectors(const Vector & angles, Vector * forward, Vector * right, Vecto
     }
 }
 
-void VectorAngles(const Vector& forward, Vector &angles) {
+void VectorAngles(const Vector& forward, Vector &angles)
+{
     float	tmp, yaw, pitch;
     
     if (forward[1] == 0 && forward[0] == 0)
@@ -119,11 +113,10 @@ void CorrectMovement(Vector vOldAngles, CUserCmd* pCmd, float fOldForward, float
     pCmd->sidemove = sin(DEG2RAD(deltaView)) * fOldForward + sin(DEG2RAD(deltaView + 90.f)) * fOldSidemove;
 }
 
-bool WorldToScreen(Vector& vFrom, Vector& vTo) {
+bool WorldToScreen(Vector& vFrom, Vector& vTo)
+{
     return (pOverlay->ScreenPosition(vFrom, vTo) != 1);
 }
-
-
 
 bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719 & keybode.
 {
@@ -134,35 +127,17 @@ bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719
     Vector min = pEntity->GetCollideable()->OBBMins() + vOrigin;
     Vector max = pEntity->GetCollideable()->OBBMaxs() + vOrigin;
     
-    Vector points[] = { Vector(min.x, min.y, min.z),
+    Vector points[] =
+    {
+        Vector(min.x, min.y, min.z),
         Vector(min.x, max.y, min.z),
         Vector(max.x, max.y, min.z),
         Vector(max.x, min.y, min.z),
         Vector(max.x, max.y, max.z),
         Vector(min.x, max.y, max.z),
         Vector(min.x, min.y, max.z),
-        Vector(max.x, min.y, max.z) };
-    
-    /*
-     .6-------5                            blb = 0
-     .' |       .' |                            brb = 1
-     7---+--4'   |        0 = min          frb = 2
-     |   |    |    |        4 = max         flb = 3
-     y |  ,0---+---1                            frt = 4
-     |.'       | .'  z                           brt = 5
-     3------2                                  blt = 6
-     x                                        flt = 7
-     
-     blt------brt        blt = back-left-top
-     .' |        .'|            brt = back-right-top
-     flt---+--frt  |            brb = back-right-bottom
-     |   |     |   |            blb = back-left-bottom
-     y |  blb---+--brb        flt = front-left-top
-     |.'        | .'  z        frt = front-right-top
-     flb------frb            frb = front-right-bottom
-     x                    flb = front-left-bottom
-     
-     */
+        Vector(max.x, min.y, max.z)
+    };
     
     Vector flb;
     Vector brt;
@@ -174,18 +149,22 @@ bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719
     Vector flt;
     
     
-    if (!WorldToScreen(points[3], flb) || !WorldToScreen(points[5], brt)
-        || !WorldToScreen(points[0], blb) || !WorldToScreen(points[4], frt)
-        || !WorldToScreen(points[2], frb) || !WorldToScreen(points[1], brb)
-        || !WorldToScreen(points[6], blt) || !WorldToScreen(points[7], flt))
+    if (!WorldToScreen(points[3], flb) ||
+        !WorldToScreen(points[5], brt) ||
+        !WorldToScreen(points[0], blb) ||
+        !WorldToScreen(points[4], frt) ||
+        !WorldToScreen(points[2], frb) ||
+        !WorldToScreen(points[1], brb) ||
+        !WorldToScreen(points[6], blt) ||
+        !WorldToScreen(points[7], flt))
         return false;
     
     Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
     
-    float left = flb.x;        // left
-    float top = flb.y;        // top
-    float right = flb.x;    // right
-    float bottom = flb.y;    // bottom
+    float left      = flb.x;    // left
+    float top       = flb.y;    // top
+    float right     = flb.x;    // right
+    float bottom    = flb.y;    // bottom
     
     for (int i = 1; i < 8; i++)
     {
@@ -199,23 +178,6 @@ bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719
             top = arr[i].y;
     }
     
-    /*
-     
-     
-              ^
-              |
-             TOP
-     
-     <-- LEFT   RIGHT -->
-     
-           BOTTOM
-             |
-             v
-     
-     
-     
-     */
-    
     str.x = left;
     str.y = top;
     str.w = right - left;
@@ -223,9 +185,11 @@ bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719
     return true;
 }
 
-void Normalize(Vector & vIn, Vector & vOut) {
+void Normalize(Vector & vIn, Vector & vOut)
+{
     float flLen = vIn.Length();
-    if (flLen == 0) {
+    if (flLen == 0)
+    {
         vOut.Init(0, 0, 1);
         return;
     }
@@ -237,36 +201,11 @@ void Normalize(Vector & vIn, Vector & vOut) {
 void GetEpochTime()
 {
     auto duration = std::chrono::system_clock::now().time_since_epoch();
-    
     return std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
 }
 
-void StdReplaceStr(std::string& replaceIn, const std::string& replace, const std::string& replacewith)
+void VectorTransform(Vector& in1, matrix3x4_t& in2, Vector& out)
 {
-    size_t const span = replace.size();
-    size_t const step = replacewith.size();
-    size_t index = 0;
-    
-    while (true)
-    {
-        index = replaceIn.find(replace, index);
-        
-        if(index == std::string::npos)
-            break;
-        
-        replaceIn.replace(index, span, replacewith);
-        index += step;
-    }
-}
-
-const char* PadStringRight(std::string text, size_t value)
-{
-    text.insert(text.length(), value - text.length(), ' ');
-    
-    return text.c_str();
-}
-
-void VectorTransform(Vector& in1, matrix3x4_t& in2, Vector& out) {
     out.x = DotProduct(in1, Vector(in2[0][0], in2[0][1], in2[0][2])) + in2[0][3];
     out.y = DotProduct(in1, Vector(in2[1][0], in2[1][1], in2[1][2])) + in2[1][3];
     out.z = DotProduct(in1, Vector(in2[2][0], in2[2][1], in2[2][2])) + in2[2][3];
@@ -274,7 +213,8 @@ void VectorTransform(Vector& in1, matrix3x4_t& in2, Vector& out) {
 
 
 
-Vector GetHitboxPosition(C_BaseEntity* pEntity, int Hitbox) {
+Vector GetHitboxPosition(C_BaseEntity* pEntity, int Hitbox)
+{
     matrix3x4_t matrix[128];
     
     if (!pEntity->SetupBones(matrix, 128, 0x100, pGlobals->curtime))
@@ -293,15 +233,18 @@ Vector GetHitboxPosition(C_BaseEntity* pEntity, int Hitbox) {
     VectorTransform(hitbox->bbmax, matrix[hitbox->bone], vMax);
     vCenter = (vMin + vMax) *0.5f;
     
-    if(vars.aimbot.pointscale != 101) {
+    if(vars.aimbot.pointscale != 101)
+    {
         float ptwoz = 50 - vars.aimbot.pointscale;
-        float zval = (ptwoz*vMin.z + vars.aimbot.pointscale*vMax.z) / 50;
+        float zval  = (ptwoz*vMin.z + vars.aimbot.pointscale*vMax.z) / 50;
         vCenter.z = zval;
     }
+    
     return vCenter;
 }
 
-bool IsVisible(C_BaseEntity* local, C_BaseEntity* entity) {
+bool IsVisible(C_BaseEntity* local, C_BaseEntity* entity)
+{
     Ray_t ray;
     trace_t trace;
     CTraceFilter filter;
@@ -312,7 +255,8 @@ bool IsVisible(C_BaseEntity* local, C_BaseEntity* entity) {
     return (trace.m_pEnt == entity || trace.fraction > 0.99f);
 }
 
-void FixMovement(Vector& oang, CUserCmd* pCmd) {
+void FixMovement(Vector& oang, CUserCmd* pCmd)
+{
     Vector vMove(pCmd->forwardmove, pCmd->sidemove, pCmd->upmove);
     float flSpeed = sqrt(vMove.x * vMove.x + vMove.y * vMove.y), flYaw;
     Vector vMove2;
@@ -324,26 +268,6 @@ void FixMovement(Vector& oang, CUserCmd* pCmd) {
     
     if (pCmd->viewangles.x < -90.f || pCmd->viewangles.x > 90.f)
         pCmd->forwardmove = -pCmd->forwardmove;
-}
-
-void SetClanTag(const char* tag, const char* name)
-{
-    SetTag(tag, name);
-}
-
-void MoveFix(CUserCmd *cmd, Vector &realvec)
-{
-    Vector vMove(cmd->forwardmove, cmd->sidemove, cmd->upmove);
-    float flSpeed = sqrt(vMove.x * vMove.x + vMove.y * vMove.y), flYaw;
-    Vector vMove2;
-    VectorAngles(vMove, vMove2);
-    
-    flYaw = DEG2RAD(cmd->viewangles.y - realvec.y + vMove2.y);
-    cmd->forwardmove = cos(flYaw) * flSpeed;
-    cmd->sidemove = sin(flYaw) * flSpeed;
-    
-    if (cmd->viewangles.x < -90.f || cmd->viewangles.x > 90.f)
-        cmd->forwardmove = -cmd->forwardmove;
 }
 
 Vector CalcAngle(Vector src, Vector dst)
@@ -369,7 +293,6 @@ Vector CalcAngle(Vector src, Vector dst)
 C_BaseCombatWeapon* GetActiveWeapon(C_BaseEntity* local)
 {
     auto hWeapon = local->GetActiveWeapon();
-    
     if (!hWeapon)
         return nullptr;
     

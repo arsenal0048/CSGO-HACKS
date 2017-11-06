@@ -3,16 +3,16 @@
 //  vHook
 //
 
-#include "../Hacks/aimbot.h"
-#include "../Hacks/antiaim.h"
-#include "../Hacks/autowall.h"
+#include "aimbot.h"
+#include "antiaim.h"
+#include "autoshoot.h"
+#include "autowall.h"
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
-int MakeHitscan(C_BaseEntity* entity)
+int Hitscan(C_BaseEntity* entity)
 {
     vector<int> hitboxes;
-
 
     hitboxes.push_back(HITBOX_HEAD);
     hitboxes.push_back(HITBOX_NECK);
@@ -43,7 +43,6 @@ int MakeHitscan(C_BaseEntity* entity)
         
         for(auto hit : hitboxes)
         {
-            
             Vector vDest = GetHitboxPosition(entity, hit);
             float thisDamage = 0.f;
             Autowall::FireBulletData data;
@@ -67,11 +66,32 @@ int MakeHitscan(C_BaseEntity* entity)
     
 }
 
+/* Just paste from aimtux and itll work
+ void Smooth(Vector& angle)
+ {
+ if(!vars.aimbot.enabled)
+ return;
+ 
+ if(!vars.aimbot.smooth)
+ return;
+ 
+ Vector viewAngles = Vector(0.f, 0.f, 0.f);
+ pEngine->GetViewAngles(viewAngles);
+ 
+ Vector delta = angle - viewAngles;
+ NormalizeAngles(delta);
+ 
+ float smooth = powf(vars.aimbot.smoothf, 0.4);
+ smooth = std::min(0.99f, smooth);
+ 
+ Vector toChange = delta - delta * smooth;
+ 
+ return angle = viewAngles + toChange;
+ }
+ */
 
-
-void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide, bool& bSendPacket)
+void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bSendPacket)
 {
-    
     if(!vars.aimbot.enabled)
         return;
     
@@ -112,9 +132,9 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
         
         Aimbot::curTarget = entity;
         
-        vFrom = GetHitboxPosition(entity, MakeHitscan(entity));
+        vFrom = GetHitboxPosition(entity, Hitscan(entity));
         
-        if(vars.aimbot.selfpred)
+        if(vars.aimbot.prediction)
             eyepos += entity->GetVelocity() * pGlobals->interval_per_tick;
         
         vTo = CalcAngle(eyepos, vFrom);
@@ -130,7 +150,6 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             canHit = getdmg >= vars.aimbot.mindmg;
         }
         
-        
         atTargets = vTo;
         
         if(canHit || isVISIBLE)
@@ -139,28 +158,13 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             {
                 if(vars.aimbot.autoshoot)
                 {
-
-                    pCmd->buttons |= IN_ATTACK;
-                }
-                
-                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped())
-                    pCmd->buttons |= IN_ATTACK2;
-        
-                if(vars.aimbot.autostop)
-                {
-                    flForward = 0.f;
-                    flSide = 0.f;
+                    AutoShoot(local, weapon, pCmd);
                 }
                 
                 if(vars.aimbot.autocrouch)
                 {
                     pCmd->buttons |= IN_DUCK;
                 }
-                
-                bool bAttack = true;
-                
-                if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
-                    bAttack = false;
                 
                 if(pCmd->buttons & IN_ATTACK)
                 {
