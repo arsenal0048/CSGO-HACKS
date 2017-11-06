@@ -3,6 +3,8 @@
 #include "../Hacks/autowall.h"
 #include "../Hacks/aimbot.h"
 
+// Thanks @pwned for fix
+
 static float GetHitgroupDamageMultiplier(HitGroups iHitGroup)
 {
     switch (iHitGroup)

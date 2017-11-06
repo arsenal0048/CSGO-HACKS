@@ -4,10 +4,12 @@
 void DrawSkeleton(C_BaseEntity* pEntity, Color color)
 {
     studiohdr_t* pStudioModel = pModelInfo->GetStudioModel( pEntity->GetModel() );
+    
     if ( !pStudioModel )
         return;
     
     static matrix3x4_t pBoneToWorldOut[128];
+    
     if ( !pEntity->SetupBones( pBoneToWorldOut, 128, 256, 0) )
         return;
     
@@ -31,15 +33,12 @@ void DrawSkeleton(C_BaseEntity* pEntity, Color color)
         
     }
     
-    
 }
-
 
 Color GetColorBase(Color& col)
 {
     return Color(col.r(), col.g(), col.b(), 255);
 }
-
 
 void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
 {
@@ -51,41 +50,6 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
     draw->fillrgba(x, y - 1, w, h + 2, Color(0, 0, 0, 200));
     draw->fillrgba(x, y + hw - 1, w, h - hw + 2, color);
     draw->drawbox(x, y - 1, w, h + 2, Color(0, 0, 0, 200));
-    
-}
-/*
-// Note: Work on later
-void DrawArmourBar(int x, int y, int w, int h, int armour, Color color)
-{
-    if(armour > 100)
-    {
-        armour = 100;
-    }
-    int hw = h - ((h) * armour) / 100;
-    draw->fillrgba(x + 1, y + 1, w, h + 2, Color(0, 0, 0, 200));
-    draw->fillrgba(x, y + hw - 1, w, h - hw + 2, color);
-    draw->drawbox(x + 1, y + 1, w, h + 2, Color(0, 0, 0, 200));
-    
-}
-*/
-
-void DrawScope(C_BaseEntity* local) {
-    if(!vars.misc.noscope || !local || (local && !local->IsScoped()))
-        return;
-    
-    auto weapon = GetActiveWeapon(local);
-    
-    if(!weapon)
-        return;
-    
-    if(*weapon->GetItemDefinitionIndex() == WEAPON_AUG || *weapon->GetItemDefinitionIndex() == WEAPON_SG556)
-        return;
-    
-    int w, h;
-    pEngine->GetScreenSize(w, h);
-    
-    draw->drawline(w / 2, 0, w / 2, h, vars.colors.scope);
-    draw->drawline(0, h / 2, w, h / 2, vars.colors.scope);
     
 }
 
@@ -117,11 +81,10 @@ void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
         sprintf(buffer, "Bomb");
     
     draw->drawstring(Box.x, Box.y, Color::Red(), espfont, buffer);
-    
 }
 
-void DrawOtherESP() {
-  // WIP
+void DrawOtherESP()
+{
     if(!vars.visuals.enabled)
         return;
     
@@ -133,18 +96,16 @@ void DrawOtherESP() {
     
     C_BaseEntity* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
-    
     for(int i = 0; i < pEntList->GetHighestEntityIndex(); i++)
     {
         auto* entity = pEntList->GetClientEntity(i);
         
         if(!entity)
             continue;
-        
-        
+    
         int classID = entity->GetClientClass()->m_ClassID;
-        C_BaseCombatWeapon* weapon = (C_BaseCombatWeapon*)entity;
-        C_BasePlantedC4* pC4 = (C_BasePlantedC4*)entity;
+        C_BaseCombatWeapon* weapon  = (C_BaseCombatWeapon*)entity;
+        C_BasePlantedC4* pC4        = (C_BasePlantedC4*)entity;
         
         
         if(!weapon || !pC4)
@@ -156,6 +117,7 @@ void DrawOtherESP() {
             DrawBombPlanted(local, pC4);
     
     }
+    
 }
 
 void DrawPlayerESP()
@@ -205,15 +167,7 @@ void DrawPlayerESP()
         }();
         
         boxstruct players;
-        char getYaw[255], getPitch[255];
         
-        sprintf(getYaw, "Y: %1.0f", entity->GetYawRotation());
-        sprintf(getPitch, "X: %1.0f", entity->GetHeadRotation());
-        
-        Vector vFrom = GetHitboxPosition(entity, vars.aimbot.hitbox);
-        Vector vW2s;
-        Vector vvvv;
-        Vector origin = entity->GetVecOrigin();
         if(DrawPlayerBox(entity, players))
         {
             
@@ -235,15 +189,6 @@ void DrawPlayerESP()
             
             if(vars.visuals.snapline)
                 draw->drawline(getscreenw / 2, getscreenh, players.x + players.w / 2, players.y + players.h, playercolor);
-        
-                                                                    
-            if(vars.visuals.headhitbox)
-            {
-                if(WorldToScreen(origin, vvvv) && WorldToScreen(vFrom, vW2s))
-                {
-                    draw->drawline(getscreenw / 2, getscreenh, vW2s.x, vW2s.y, playercolor);
-                }
-            }
             
             if(vars.visuals.skeleton)
                 DrawSkeleton(entity, Color::White());
@@ -263,8 +208,6 @@ void DrawPlayerESP()
             if((entity->GetFlashDuration() - pGlobals->curtime > 2.0f))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Yellow(), espfont, "Flashed");
 
-            draw->drawstring(players.x + players.w, players.y + 12, Color::Red(), espfont, getYaw);
-            draw->drawstring(players.x + players.w, players.y + 25, Color::Red(), espfont, getPitch);
         }
     
     }
@@ -276,8 +219,9 @@ void DrawPlayerESP()
 void pwnmymenu()
 {
     
-    if(pInputSystem->IsButtonDown(KEY_LALT) || pInputSystem->IsButtonDown(KEY_RALT) || pInputSystem->IsButtonDown(KEY_INSERT)) {
+    if(pInputSystem->IsButtonDown(KEY_INSERT))
+    {
         vars.menu = !vars.menu;
-    }
+        }
     
-}
+    }

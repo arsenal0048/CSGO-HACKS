@@ -1,13 +1,12 @@
 #include "main.h"
-#include "../Hacks/skybox.h"
 
-std::string DirName(std::string source)
+string DirName(string source)
 {
     source.erase(find(source.rbegin(), source.rend(), '/').base(), source.end());
     return source;
 }
 
-std::string GetWorkingPath()
+string GetWorkingPath()
 {
     char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
     proc_pidpath(getpid(), pathbuf, sizeof(pathbuf));
@@ -15,7 +14,7 @@ std::string GetWorkingPath()
     return dirname;
 }
 
-bool IsFileExists(const std::string& name)
+bool IsFileExists(const string& name)
 {
     int res = access(name.c_str(), R_OK);
     if (res < 0)
@@ -36,26 +35,26 @@ bool IsFileExists(const std::string& name)
     return true;
 }
 
-void AddMaterial(std::string filename, std::string type, bool ignorez, bool wireframe)
+void AddMaterial(string filename, string type, bool ignorez, bool wireframe)
 {
     if (!IsFileExists(GetWorkingPath().append("csgo/materials/").append(filename).append(".vmt")))
     {
-        std::stringstream ss;
+        stringstream ss;
         
-        ss << "\"" + type + "\"\n" << std::endl;
-        ss << "{\n" << std::endl;
-        ss << "\t\"$basetexture\" \"VGUI/white_additive\"\n" << std::endl;
-        ss << "\t\"$nofog\" \"1\"\n" << std::endl;
-        ss << "\t\"$ignorez\" \"" + std::to_string(ignorez) + "\"\n" << std::endl;
-        ss << "\t\"$wireframe\" \""+ std::to_string(wireframe) +"\"\n" << std::endl;
-        ss << "\t\"$halflambert\" \"1\"\n" << std::endl;
-        ss << "}\n" << std::endl;
+        ss << "\"" + type + "\"\n" << endl;
+        ss << "{\n" << endl;
+        ss << "\t\"$basetexture\" \"VGUI/white_additive\"\n" << endl;
+        ss << "\t\"$nofog\" \"1\"\n" << endl;
+        ss << "\t\"$ignorez\" \"" + to_string(ignorez) + "\"\n" << endl;
+        ss << "\t\"$wireframe\" \""+ to_string(wireframe) +"\"\n" << endl;
+        ss << "\t\"$halflambert\" \"1\"\n" << endl;
+        ss << "}\n" << endl;
         
-        std::ofstream(GetWorkingPath().append("csgo/materials/").append(filename).append(".vmt").c_str()) << ss.str();
+        ofstream(GetWorkingPath().append("csgo/materials/").append(filename).append(".vmt").c_str()) << ss.str();
     }
 }
 
-IMaterial* CreateMaterial(bool ignorez, bool wireframe, std::string szType)
+IMaterial* CreateMaterial(bool ignorez, bool wireframe, string szType)
 {
     IMaterial* createdMaterial = nullptr;
     
@@ -101,6 +100,8 @@ IMaterial* CreateMaterial(bool ignorez, bool wireframe, std::string szType)
             createdMaterial = pMatSystem->FindMaterial("barbossa_chamsmat_unlit", TEXTURE_GROUP_MODEL);
         }
     }
+    
+    
     if(szType == "WireFrame")
     {
         if(ignorez)
@@ -129,7 +130,7 @@ IMaterial* CreateMaterial(bool ignorez, bool wireframe, std::string szType)
 
 void CallOriginalModel(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld)
 {
-    modelhook->GetOriginalMethod<tDrawModelExecute>(21)(thisptr, context, state, pInfo, pCustomBoneToWorld);
+    modelVMT->GetOriginalMethod<tDrawModelExecute>(21)(thisptr, context, state, pInfo, pCustomBoneToWorld);
 }
 
 void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld)
@@ -146,7 +147,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
     
     if(pInfo.pModel)
     {
-        std::string pszModel = pModelInfo->GetModelName(pInfo.pModel);
+        string pszModel = pModelInfo->GetModelName(pInfo.pModel);
         
         if(vars.misc.antiscreenshot && pEngine->IsTakingScreenshot())
         {
@@ -155,8 +156,6 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
             return;
         }
         
-        
-        //World Paint
         
         for (MaterialHandle_t i = pMatSystem->FirstMaterial(); i != pMatSystem->InvalidMaterial(); i = pMatSystem->NextMaterial(i))
         {
@@ -176,9 +175,8 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         }
         
         // Weapon Chams
-        if(pszModel.find("weapons") != std::string::npos  && vars.visuals.weaponchams)
+        if(pszModel.find("weapons") != string::npos  && vars.visuals.weaponchams)
         {
-            
             IMaterial* materialCheckFirst = [&]() -> IMaterial*
             {
                 if(vars.visuals.weaponType == 0)
@@ -197,10 +195,10 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         
         
         // Hand Chams
-        if(pszModel.find("arms") != std::string::npos && vars.visuals.handchams)
+        if(pszModel.find("arms") != string::npos && vars.visuals.handchams)
         {
-            
-            IMaterial* materialCheckFirst = [&]() -> IMaterial* {
+            IMaterial* materialCheckFirst = [&]() -> IMaterial*
+            {
                 if(vars.visuals.handsType == 0)
                     return firstLit;
                 else if(vars.visuals.handsType == 1)
@@ -216,7 +214,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         }
         
         // Player Chams
-        if(pszModel.find("models/player") != std::string::npos && vars.visuals.chams)
+        if(pszModel.find("models/player") != string::npos && vars.visuals.chams)
         {
             auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             auto* entity = pEntList->GetClientEntity(pInfo.entity_index);

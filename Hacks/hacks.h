@@ -10,6 +10,7 @@ typedef void (*tFrameStage)(void*, ClientFrameStage_t);
 typedef void (*tDrawModelExecute)(void*, void*, void*, const ModelRenderInfo_t&, matrix3x4_t*);
 typedef void (* tRunCommand)(void*, C_BaseEntity*, CUserCmd*, void*);
 typedef void (*BeginFrameFn) (void*, float);
+typedef void (*SendClanTagFn) (const char*, const char*);
 
 
 extern void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce);
@@ -22,8 +23,6 @@ extern void hkRunCommand(void* thisptr, C_BaseEntity* pLocal, CUserCmd* pCmd, vo
 extern void hkBeginFrame(void* thisptr, float frameTime);
 
 
-
-extern Vector vViewAngles;
 extern void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut);
 extern void FixPitch(const CRecvProxyData *pData, void *pStruct, void *pOut);
 extern void BaseVelocityProxy(const CRecvProxyData *pData, void *pStruct, void *pOut);

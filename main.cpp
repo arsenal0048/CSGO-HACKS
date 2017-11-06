@@ -1,7 +1,5 @@
 #include "main.h"
 
-
-
 int __attribute__((constructor)) Init()
 {
     
@@ -16,6 +14,8 @@ int __attribute__((constructor)) Init()
     Offsets::getOffsets();
     
     UpdateResolver();
+    
+    PrintInfo();
     
     return 0;
 }

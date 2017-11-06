@@ -54,3 +54,8 @@ enum VIEW_ANTIIAIM_FYAW
 };
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
+void Fakewalk(CUserCmd* cmd, C_BaseEntity* local);
+void Moonwalk(CUserCmd* cmd);
+
+
+

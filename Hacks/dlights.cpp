@@ -1,6 +1,8 @@
 #include "../Hacks/dlights.h"
 
-void DLights() // Thnx Rocco
+// Thanks @rocco (even though it's from aimtux lmao)
+
+void DLights()
 {
     if (!vars.visuals.dlights)
         return;
@@ -9,14 +11,14 @@ void DLights() // Thnx Rocco
         return;
     
     C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
     if (!localplayer || !localplayer->GetAlive())
         return;
     
-    
-   for (int i = 1; i < pEngine->GetMaxClients(); i++)
+   for (int i = 0; i < pEngine->GetMaxClients(); i++)
     {
-        // C_BasePlayer* player = (C_BasePlayer*) entityList->GetClientEntity(i);
-       C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(i);
+        C_BaseEntity* player = (C_BaseEntity*) pEntList->GetClientEntity(i);
+        
         if (!player)
             continue;
         
@@ -25,8 +27,7 @@ void DLights() // Thnx Rocco
 
        if (player->GetTeam() != localplayer->GetTeam() && (!vars.visuals.enabled))
        {
-            
-           dlight_t* eLight = pCEffects->CL_AllocElight(i);
+            dlight_t* eLight = pEffects->CL_AllocElight(i);
             eLight->origin =  player->GetVecOrigin() + Vector(0.0f, 0.0f, 35.0f);
             eLight->radius = 100.0f;
             eLight->color.r = 255;
@@ -37,7 +38,7 @@ void DLights() // Thnx Rocco
             eLight->decay = eLight->radius / 5.0f;
             eLight->key = i;
             
-            dlight_t* dLight = pCEffects->CL_AllocDlight(i);
+            dlight_t* dLight = pEffects->CL_AllocDlight(i);
             dLight->key = i;
             dLight->color.r = 255;
             dLight->color.g = 0;
@@ -49,9 +50,9 @@ void DLights() // Thnx Rocco
             dLight->radius = 1000.0f; //50
             dLight->die = pGlobals->curtime + 0.5f;
             dLight->decay = dLight->radius / 5.0f;
-            
-            
+           
        }
 
     }
+    
 }

@@ -12,7 +12,7 @@ typedef float vec_t;
 
 #define FastSqrt(x)			(sqrt)(x)
 
-#define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
+//#define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
 
 #define M_RADPI 57.295779513082
 

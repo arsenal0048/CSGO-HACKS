@@ -1,14 +1,15 @@
 #include "spammer.h"
 
+// Thanks @pwned
+
 vector<string> spamMessages =
-{
+{   // Add messages here
     ""
 };
 
 
 void DoSpammer()
 {
-    
     if (!pEngine->IsInGame())
         return;
     
@@ -27,5 +28,4 @@ void DoSpammer()
     
     if(i > 1000)
         i = 0;
-    
 }

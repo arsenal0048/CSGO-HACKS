@@ -7,27 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1441EF841F9B0E0F005529AF /* fakewalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1441EF821F9B0E0F005529AF /* fakewalk.cpp */; };
-		1441EF851F9B0E0F005529AF /* fakewalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 1441EF831F9B0E0F005529AF /* fakewalk.h */; };
-		148074D11FA1038E004ED508 /* moonwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148074CF1FA1038E004ED508 /* moonwalk.cpp */; };
-		148074D21FA1038E004ED508 /* moonwalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 148074D01FA1038E004ED508 /* moonwalk.h */; };
 		148074D81FA105C5004ED508 /* resolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148074D71FA105C4004ED508 /* resolver.cpp */; };
-		148074DB1FA10639004ED508 /* showrank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148074D91FA10639004ED508 /* showrank.cpp */; };
-		148074DC1FA10639004ED508 /* showrank.h in Headers */ = {isa = PBXBuildFile; fileRef = 148074DA1FA10639004ED508 /* showrank.h */; };
-		148074E31FA10AAC004ED508 /* noflash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148074E11FA10AAC004ED508 /* noflash.cpp */; };
-		148074E41FA10AAC004ED508 /* noflash.h in Headers */ = {isa = PBXBuildFile; fileRef = 148074E21FA10AAC004ED508 /* noflash.h */; };
 		148074EC1FA11AD7004ED508 /* FrameStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148074EB1FA11AD6004ED508 /* FrameStage.cpp */; };
-		14A1EF741FAA168800C1C940 /* rcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A1EF721FAA168800C1C940 /* rcs.cpp */; };
-		14A1EF751FAA168800C1C940 /* rcs.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A1EF731FAA168800C1C940 /* rcs.h */; };
-		14A1EF781FAA1A6700C1C940 /* smoothing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A1EF761FAA1A6700C1C940 /* smoothing.cpp */; };
-		14A1EF791FAA1A6700C1C940 /* smoothing.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A1EF771FAA1A6700C1C940 /* smoothing.h */; };
 		14D91BFD1F99B58700252244 /* spectators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D91BFB1F99B58600252244 /* spectators.cpp */; };
-		14D91C001F99B58F00252244 /* recoilcrosshair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D91BFE1F99B58F00252244 /* recoilcrosshair.cpp */; };
+		14D91C001F99B58F00252244 /* crosshair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D91BFE1F99B58F00252244 /* crosshair.cpp */; };
 		14D91C031F99B59A00252244 /* dlights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D91C011F99B59800252244 /* dlights.cpp */; };
-		14E0EA071F9B3BCA00892575 /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EA051F9B3BCA00892575 /* fakelag.cpp */; };
-		14E0EA081F9B3BCA00892575 /* fakelag.h in Headers */ = {isa = PBXBuildFile; fileRef = 14E0EA061F9B3BCA00892575 /* fakelag.h */; };
-		14E0EA0F1F9B55A500892575 /* airstuck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E0EA0D1F9B55A500892575 /* airstuck.cpp */; };
-		14E0EA101F9B55A500892575 /* airstuck.h in Headers */ = {isa = PBXBuildFile; fileRef = 14E0EA0E1F9B55A500892575 /* airstuck.h */; };
 		9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B261F8660FD00518DE8 /* CreateMove.cpp */; };
 		9A213B2E1F8660FD00518DE8 /* DrawModelExecute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B271F8660FD00518DE8 /* DrawModelExecute.cpp */; };
 		9A213B301F8660FD00518DE8 /* KeyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B291F8660FD00518DE8 /* KeyEvent.cpp */; };
@@ -36,8 +20,6 @@
 		9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B2C1F8660FD00518DE8 /* RunCommand.cpp */; };
 		9A213B361F86611C00518DE8 /* bhop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B341F86611C00518DE8 /* bhop.cpp */; };
 		9A213B371F86611C00518DE8 /* bhop.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A213B351F86611C00518DE8 /* bhop.h */; };
-		9A213B3A1F8661E300518DE8 /* skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B381F8661E300518DE8 /* skybox.cpp */; };
-		9A213B3B1F8661E300518DE8 /* skybox.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A213B391F8661E300518DE8 /* skybox.h */; };
 		9A213B3E1F86625700518DE8 /* triggerbot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B3C1F86625700518DE8 /* triggerbot.cpp */; };
 		9A213B3F1F86625700518DE8 /* triggerbot.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A213B3D1F86625700518DE8 /* triggerbot.h */; };
 		9A213B421F86632D00518DE8 /* clantag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B401F86632D00518DE8 /* clantag.cpp */; };
@@ -51,12 +33,12 @@
 		B67AE8301F91AED700ADDCD8 /* netvarmanager.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE82C1F91AED700ADDCD8 /* netvarmanager.h */; };
 		B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE82D1F91AED700ADDCD8 /* patternscan.cpp */; };
 		B67AE8321F91AED700ADDCD8 /* patternscan.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE82E1F91AED700ADDCD8 /* patternscan.h */; };
-		B67AE8381F91B0D800ADDCD8 /* Hooks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8331F91B0D800ADDCD8 /* Hooks.cpp */; };
+		B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8331F91B0D800ADDCD8 /* hooks.cpp */; };
 		B67AE8391F91B0D800ADDCD8 /* interfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8341F91B0D800ADDCD8 /* interfaces.cpp */; };
 		B67AE83A1F91B0D800ADDCD8 /* interfaces.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8351F91B0D800ADDCD8 /* interfaces.h */; };
 		B67AE83B1F91B0D800ADDCD8 /* Info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8361F91B0D800ADDCD8 /* Info.cpp */; };
-		B67AE83C1F91B0D800ADDCD8 /* Hooks.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8371F91B0D800ADDCD8 /* Hooks.h */; };
-		B67AE83E1F91B1E600ADDCD8 /* haker.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE83D1F91B1E600ADDCD8 /* haker.h */; };
+		B67AE83C1F91B0D800ADDCD8 /* hooks.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8371F91B0D800ADDCD8 /* hooks.h */; };
+		B67AE83E1F91B1E600ADDCD8 /* hacks.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE83D1F91B1E600ADDCD8 /* hacks.h */; };
 		B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE83F1F91B1F100ADDCD8 /* utils.cpp */; };
 		B67AE8421F91B1F100ADDCD8 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8401F91B1F100ADDCD8 /* utils.h */; };
 		B67AE8451F91B20100ADDCD8 /* drawings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8431F91B20100ADDCD8 /* drawings.cpp */; };
@@ -71,6 +53,12 @@
 		B67AE8561F91CE8800ADDCD8 /* antiaim.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8541F91CE8800ADDCD8 /* antiaim.h */; };
 		B67AE8591F91D0B200ADDCD8 /* autowall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67AE8571F91D0B200ADDCD8 /* autowall.cpp */; };
 		B67AE85A1F91D0B200ADDCD8 /* autowall.h in Headers */ = {isa = PBXBuildFile; fileRef = B67AE8581F91D0B200ADDCD8 /* autowall.h */; };
+		B6A954641FAC9CB600351006 /* CEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = B6A954621FAC9CB600351006 /* CEffects.h */; };
+		B6A954651FAC9CB600351006 /* CPlayerResource.h in Headers */ = {isa = PBXBuildFile; fileRef = B6A954631FAC9CB600351006 /* CPlayerResource.h */; };
+		B6A954681FACAC0900351006 /* prediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6A954661FACAC0900351006 /* prediction.cpp */; };
+		B6A954691FACAC0900351006 /* prediction.h in Headers */ = {isa = PBXBuildFile; fileRef = B6A954671FACAC0900351006 /* prediction.h */; };
+		B6E2FA7C1FB04976008FE45C /* autoshoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E2FA7A1FB04976008FE45C /* autoshoot.cpp */; };
+		B6E2FA7D1FB04976008FE45C /* autoshoot.h in Headers */ = {isa = PBXBuildFile; fileRef = B6E2FA7B1FB04976008FE45C /* autoshoot.h */; };
 		E1FE19C11E718F020018D409 /* C_BaseEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = E1FE19AC1E718F020018D409 /* C_BaseEntity.h */; };
 		E1FE19C21E718F020018D409 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = E1FE19AD1E718F020018D409 /* Color.h */; };
 		E1FE19C31E718F020018D409 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = E1FE19AE1E718F020018D409 /* common.h */; };
@@ -95,32 +83,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1441EF821F9B0E0F005529AF /* fakewalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fakewalk.cpp; path = Hacks/fakewalk.cpp; sourceTree = "<group>"; };
-		1441EF831F9B0E0F005529AF /* fakewalk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fakewalk.h; path = Hacks/fakewalk.h; sourceTree = "<group>"; };
-		145940D01FA148A2000BB177 /* CPlayerResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CPlayerResource.h; path = SDK/CPlayerResource.h; sourceTree = "<group>"; };
-		148074CF1FA1038E004ED508 /* moonwalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moonwalk.cpp; path = Hacks/moonwalk.cpp; sourceTree = "<group>"; };
-		148074D01FA1038E004ED508 /* moonwalk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = moonwalk.h; path = Hacks/moonwalk.h; sourceTree = "<group>"; };
 		148074D71FA105C4004ED508 /* resolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resolver.cpp; path = Hacks/resolver.cpp; sourceTree = "<group>"; };
-		148074D91FA10639004ED508 /* showrank.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = showrank.cpp; path = Hacks/showrank.cpp; sourceTree = "<group>"; };
-		148074DA1FA10639004ED508 /* showrank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = showrank.h; path = Hacks/showrank.h; sourceTree = "<group>"; };
-		148074E11FA10AAC004ED508 /* noflash.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = noflash.cpp; path = Hacks/noflash.cpp; sourceTree = "<group>"; };
-		148074E21FA10AAC004ED508 /* noflash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = noflash.h; path = Hacks/noflash.h; sourceTree = "<group>"; };
 		148074EB1FA11AD6004ED508 /* FrameStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrameStage.cpp; path = Hooks/FrameStage.cpp; sourceTree = "<group>"; };
-		14A1EF721FAA168800C1C940 /* rcs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = rcs.cpp; path = Hacks/rcs.cpp; sourceTree = "<group>"; };
-		14A1EF731FAA168800C1C940 /* rcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = rcs.h; path = Hacks/rcs.h; sourceTree = "<group>"; };
-		14A1EF761FAA1A6700C1C940 /* smoothing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = smoothing.cpp; path = Hacks/smoothing.cpp; sourceTree = "<group>"; };
-		14A1EF771FAA1A6700C1C940 /* smoothing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = smoothing.h; path = Hacks/smoothing.h; sourceTree = "<group>"; };
 		14D91BFB1F99B58600252244 /* spectators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = spectators.cpp; path = Hacks/spectators.cpp; sourceTree = "<group>"; };
 		14D91BFC1F99B58600252244 /* spectators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spectators.h; path = Hacks/spectators.h; sourceTree = "<group>"; };
-		14D91BFE1F99B58F00252244 /* recoilcrosshair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = recoilcrosshair.cpp; path = Hacks/recoilcrosshair.cpp; sourceTree = "<group>"; };
-		14D91BFF1F99B58F00252244 /* recoilcrosshair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = recoilcrosshair.h; path = Hacks/recoilcrosshair.h; sourceTree = "<group>"; };
+		14D91BFE1F99B58F00252244 /* crosshair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = crosshair.cpp; path = Hacks/crosshair.cpp; sourceTree = "<group>"; };
+		14D91BFF1F99B58F00252244 /* crosshair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = crosshair.h; path = Hacks/crosshair.h; sourceTree = "<group>"; };
 		14D91C011F99B59800252244 /* dlights.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = dlights.cpp; path = Hacks/dlights.cpp; sourceTree = "<group>"; };
 		14D91C021F99B59900252244 /* dlights.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dlights.h; path = Hacks/dlights.h; sourceTree = "<group>"; };
-		14D91C0D1F99B65C00252244 /* CEffects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CEffects.h; path = SDK/CEffects.h; sourceTree = "<group>"; };
-		14E0EA051F9B3BCA00892575 /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fakelag.cpp; path = Hacks/fakelag.cpp; sourceTree = "<group>"; };
-		14E0EA061F9B3BCA00892575 /* fakelag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fakelag.h; path = Hacks/fakelag.h; sourceTree = "<group>"; };
-		14E0EA0D1F9B55A500892575 /* airstuck.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = airstuck.cpp; path = Hacks/airstuck.cpp; sourceTree = "<group>"; };
-		14E0EA0E1F9B55A500892575 /* airstuck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = airstuck.h; path = Hacks/airstuck.h; sourceTree = "<group>"; };
 		9A213B261F8660FD00518DE8 /* CreateMove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CreateMove.cpp; path = Hooks/CreateMove.cpp; sourceTree = "<group>"; };
 		9A213B271F8660FD00518DE8 /* DrawModelExecute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DrawModelExecute.cpp; path = Hooks/DrawModelExecute.cpp; sourceTree = "<group>"; };
 		9A213B291F8660FD00518DE8 /* KeyEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyEvent.cpp; path = Hooks/KeyEvent.cpp; sourceTree = "<group>"; };
@@ -129,8 +99,6 @@
 		9A213B2C1F8660FD00518DE8 /* RunCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RunCommand.cpp; path = Hooks/RunCommand.cpp; sourceTree = "<group>"; };
 		9A213B341F86611C00518DE8 /* bhop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bhop.cpp; path = Hacks/bhop.cpp; sourceTree = "<group>"; };
 		9A213B351F86611C00518DE8 /* bhop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bhop.h; path = Hacks/bhop.h; sourceTree = "<group>"; };
-		9A213B381F8661E300518DE8 /* skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = skybox.cpp; path = Hacks/skybox.cpp; sourceTree = "<group>"; };
-		9A213B391F8661E300518DE8 /* skybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = skybox.h; path = Hacks/skybox.h; sourceTree = "<group>"; };
 		9A213B3C1F86625700518DE8 /* triggerbot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = triggerbot.cpp; path = Hacks/triggerbot.cpp; sourceTree = "<group>"; };
 		9A213B3D1F86625700518DE8 /* triggerbot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = triggerbot.h; path = Hacks/triggerbot.h; sourceTree = "<group>"; };
 		9A213B401F86632D00518DE8 /* clantag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = clantag.cpp; path = Hacks/clantag.cpp; sourceTree = "<group>"; };
@@ -144,12 +112,12 @@
 		B67AE82C1F91AED700ADDCD8 /* netvarmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = netvarmanager.h; path = Utils/netvarmanager.h; sourceTree = "<group>"; };
 		B67AE82D1F91AED700ADDCD8 /* patternscan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = patternscan.cpp; path = Utils/patternscan.cpp; sourceTree = "<group>"; };
 		B67AE82E1F91AED700ADDCD8 /* patternscan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = patternscan.h; path = Utils/patternscan.h; sourceTree = "<group>"; };
-		B67AE8331F91B0D800ADDCD8 /* Hooks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hooks.cpp; path = Interfaces/Hooks.cpp; sourceTree = "<group>"; };
+		B67AE8331F91B0D800ADDCD8 /* hooks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hooks.cpp; path = Interfaces/hooks.cpp; sourceTree = "<group>"; };
 		B67AE8341F91B0D800ADDCD8 /* interfaces.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interfaces.cpp; path = Interfaces/interfaces.cpp; sourceTree = "<group>"; };
 		B67AE8351F91B0D800ADDCD8 /* interfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interfaces.h; path = Interfaces/interfaces.h; sourceTree = "<group>"; };
 		B67AE8361F91B0D800ADDCD8 /* Info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Info.cpp; path = Interfaces/Info.cpp; sourceTree = "<group>"; };
-		B67AE8371F91B0D800ADDCD8 /* Hooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hooks.h; path = Interfaces/Hooks.h; sourceTree = "<group>"; };
-		B67AE83D1F91B1E600ADDCD8 /* haker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haker.h; path = Hacks/haker.h; sourceTree = "<group>"; };
+		B67AE8371F91B0D800ADDCD8 /* hooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hooks.h; path = Interfaces/hooks.h; sourceTree = "<group>"; };
+		B67AE83D1F91B1E600ADDCD8 /* hacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hacks.h; path = Hacks/hacks.h; sourceTree = "<group>"; };
 		B67AE83F1F91B1F100ADDCD8 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = Utils/utils.cpp; sourceTree = "<group>"; };
 		B67AE8401F91B1F100ADDCD8 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = Utils/utils.h; sourceTree = "<group>"; };
 		B67AE8431F91B20100ADDCD8 /* drawings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawings.cpp; path = Drawings/drawings.cpp; sourceTree = "<group>"; };
@@ -164,6 +132,12 @@
 		B67AE8541F91CE8800ADDCD8 /* antiaim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = antiaim.h; path = Hacks/antiaim.h; sourceTree = "<group>"; };
 		B67AE8571F91D0B200ADDCD8 /* autowall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = autowall.cpp; path = Hacks/autowall.cpp; sourceTree = "<group>"; };
 		B67AE8581F91D0B200ADDCD8 /* autowall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = autowall.h; path = Hacks/autowall.h; sourceTree = "<group>"; };
+		B6A954621FAC9CB600351006 /* CEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CEffects.h; path = SDK/CEffects.h; sourceTree = "<group>"; };
+		B6A954631FAC9CB600351006 /* CPlayerResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPlayerResource.h; path = SDK/CPlayerResource.h; sourceTree = "<group>"; };
+		B6A954661FACAC0900351006 /* prediction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = prediction.cpp; path = Hacks/prediction.cpp; sourceTree = "<group>"; };
+		B6A954671FACAC0900351006 /* prediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prediction.h; path = Hacks/prediction.h; sourceTree = "<group>"; };
+		B6E2FA7A1FB04976008FE45C /* autoshoot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = autoshoot.cpp; path = Hacks/autoshoot.cpp; sourceTree = "<group>"; };
+		B6E2FA7B1FB04976008FE45C /* autoshoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = autoshoot.h; path = Hacks/autoshoot.h; sourceTree = "<group>"; };
 		E104BF971E71D8A80080C9BA /* CGlobalVarsBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGlobalVarsBase.h; path = SDK/CGlobalVarsBase.h; sourceTree = "<group>"; };
 		E14A23711E72EF1500195305 /* IInputSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IInputSystem.h; path = SDK/IInputSystem.h; sourceTree = "<group>"; };
 		E14A23771E73578300195305 /* CViewSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CViewSetup.h; path = SDK/CViewSetup.h; sourceTree = "<group>"; };
@@ -255,47 +229,33 @@
 		E181BB151E74661D00D1CCED /* Hacks */ = {
 			isa = PBXGroup;
 			children = (
-				14D91C011F99B59800252244 /* dlights.cpp */,
-				14D91C021F99B59900252244 /* dlights.h */,
-				14D91BFE1F99B58F00252244 /* recoilcrosshair.cpp */,
-				14D91BFF1F99B58F00252244 /* recoilcrosshair.h */,
 				B67AE84F1F91CE7D00ADDCD8 /* aimbot.cpp */,
 				B67AE8501F91CE7D00ADDCD8 /* aimbot.h */,
 				B67AE8531F91CE8800ADDCD8 /* antiaim.cpp */,
 				B67AE8541F91CE8800ADDCD8 /* antiaim.h */,
+				B6E2FA7A1FB04976008FE45C /* autoshoot.cpp */,
+				B6E2FA7B1FB04976008FE45C /* autoshoot.h */,
 				B67AE8571F91D0B200ADDCD8 /* autowall.cpp */,
 				B67AE8581F91D0B200ADDCD8 /* autowall.h */,
 				9A213B341F86611C00518DE8 /* bhop.cpp */,
 				9A213B351F86611C00518DE8 /* bhop.h */,
 				9A213B401F86632D00518DE8 /* clantag.cpp */,
 				9A213B411F86632D00518DE8 /* clantag.h */,
+				14D91BFE1F99B58F00252244 /* crosshair.cpp */,
+				14D91BFF1F99B58F00252244 /* crosshair.h */,
+				14D91C011F99B59800252244 /* dlights.cpp */,
+				14D91C021F99B59900252244 /* dlights.h */,
 				9ADC15EA1F8F77F600BBF4A7 /* esp.cpp */,
 				9ADC15EB1F8F77F600BBF4A7 /* esp.h */,
+				B6A954661FACAC0900351006 /* prediction.cpp */,
+				B6A954671FACAC0900351006 /* prediction.h */,
 				148074D71FA105C4004ED508 /* resolver.cpp */,
-				9A213B381F8661E300518DE8 /* skybox.cpp */,
-				9A213B391F8661E300518DE8 /* skybox.h */,
 				9ADC15EE1F8F7AFE00BBF4A7 /* spammer.cpp */,
 				9ADC15EF1F8F7AFE00BBF4A7 /* spammer.h */,
 				9A213B3C1F86625700518DE8 /* triggerbot.cpp */,
 				9A213B3D1F86625700518DE8 /* triggerbot.h */,
 				14D91BFB1F99B58600252244 /* spectators.cpp */,
 				14D91BFC1F99B58600252244 /* spectators.h */,
-				1441EF821F9B0E0F005529AF /* fakewalk.cpp */,
-				1441EF831F9B0E0F005529AF /* fakewalk.h */,
-				14E0EA051F9B3BCA00892575 /* fakelag.cpp */,
-				14E0EA061F9B3BCA00892575 /* fakelag.h */,
-				14E0EA0D1F9B55A500892575 /* airstuck.cpp */,
-				14E0EA0E1F9B55A500892575 /* airstuck.h */,
-				148074CF1FA1038E004ED508 /* moonwalk.cpp */,
-				148074D01FA1038E004ED508 /* moonwalk.h */,
-				148074D91FA10639004ED508 /* showrank.cpp */,
-				148074DA1FA10639004ED508 /* showrank.h */,
-				148074E11FA10AAC004ED508 /* noflash.cpp */,
-				148074E21FA10AAC004ED508 /* noflash.h */,
-				14A1EF721FAA168800C1C940 /* rcs.cpp */,
-				14A1EF731FAA168800C1C940 /* rcs.h */,
-				14A1EF761FAA1A6700C1C940 /* smoothing.cpp */,
-				14A1EF771FAA1A6700C1C940 /* smoothing.h */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -358,8 +318,8 @@
 				B67AE82C1F91AED700ADDCD8 /* netvarmanager.h */,
 				B67AE82D1F91AED700ADDCD8 /* patternscan.cpp */,
 				B67AE82E1F91AED700ADDCD8 /* patternscan.h */,
-				14D91C0D1F99B65C00252244 /* CEffects.h */,
-				145940D01FA148A2000BB177 /* CPlayerResource.h */,
+				B6A954621FAC9CB600351006 /* CEffects.h */,
+				B6A954631FAC9CB600351006 /* CPlayerResource.h */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -377,8 +337,8 @@
 		E1FE19D71E718F120018D409 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				B67AE8331F91B0D800ADDCD8 /* Hooks.cpp */,
-				B67AE8371F91B0D800ADDCD8 /* Hooks.h */,
+				B67AE8331F91B0D800ADDCD8 /* hooks.cpp */,
+				B67AE8371F91B0D800ADDCD8 /* hooks.h */,
 				B67AE8341F91B0D800ADDCD8 /* interfaces.cpp */,
 				B67AE8351F91B0D800ADDCD8 /* interfaces.h */,
 			);
@@ -389,7 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				E181BB151E74661D00D1CCED /* Hacks */,
-				B67AE83D1F91B1E600ADDCD8 /* haker.h */,
+				B67AE83D1F91B1E600ADDCD8 /* hacks.h */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -406,45 +366,40 @@
 				B67AE85A1F91D0B200ADDCD8 /* autowall.h in Headers */,
 				9A213B431F86632D00518DE8 /* clantag.h in Headers */,
 				E1FE19CD1E718F020018D409 /* IVDebugOverlay.h in Headers */,
-				9A213B3B1F8661E300518DE8 /* skybox.h in Headers */,
+				B6A954691FACAC0900351006 /* prediction.h in Headers */,
 				9ADC15ED1F8F77F600BBF4A7 /* esp.h in Headers */,
 				9ADC15F11F8F7AFE00BBF4A7 /* spammer.h in Headers */,
 				B67AE8321F91AED700ADDCD8 /* patternscan.h in Headers */,
-				14E0EA081F9B3BCA00892575 /* fakelag.h in Headers */,
+				B6A954651FAC9CB600351006 /* CPlayerResource.h in Headers */,
 				E1FE19C91E718F020018D409 /* IEngineTrace.h in Headers */,
 				E1FE19D51E718F020018D409 /* VMT.h in Headers */,
 				9A213B371F86611C00518DE8 /* bhop.h in Headers */,
-				148074DC1FA10639004ED508 /* showrank.h in Headers */,
 				E1FE19DB1E718F230018D409 /* main.h in Headers */,
 				E1FE19CA1E718F020018D409 /* IMaterial.h in Headers */,
 				E1FE19CC1E718F020018D409 /* ISurface.h in Headers */,
-				14E0EA101F9B55A500892575 /* airstuck.h in Headers */,
 				E1FE19C61E718F020018D409 /* IClientEntityList.h in Headers */,
+				B6E2FA7D1FB04976008FE45C /* autoshoot.h in Headers */,
 				E1FE19C51E718F020018D409 /* IBaseClientDLL.h in Headers */,
 				E1FE19C21E718F020018D409 /* Color.h in Headers */,
 				E1FE19C81E718F020018D409 /* IEngineClient.h in Headers */,
 				E1FE19C31E718F020018D409 /* common.h in Headers */,
 				B67AE8491F91B20800ADDCD8 /* bvars.h in Headers */,
-				B67AE83E1F91B1E600ADDCD8 /* haker.h in Headers */,
-				B67AE83C1F91B0D800ADDCD8 /* Hooks.h in Headers */,
+				B67AE83E1F91B1E600ADDCD8 /* hacks.h in Headers */,
+				B67AE83C1F91B0D800ADDCD8 /* hooks.h in Headers */,
 				B67AE8301F91AED700ADDCD8 /* netvarmanager.h in Headers */,
 				E1FE19D21E718F020018D409 /* offsets.h in Headers */,
 				E1FE19D31E718F020018D409 /* Others.h in Headers */,
+				B6A954641FAC9CB600351006 /* CEffects.h in Headers */,
 				B67AE84E1F91CD8200ADDCD8 /* menu.h in Headers */,
-				14A1EF751FAA168800C1C940 /* rcs.h in Headers */,
-				14A1EF791FAA1A6700C1C940 /* smoothing.h in Headers */,
 				E1FE19CB1E718F020018D409 /* IPanel.h in Headers */,
 				E1FE19C71E718F020018D409 /* ICvar.h in Headers */,
 				B67AE8461F91B20100ADDCD8 /* drawings.h in Headers */,
 				B67AE83A1F91B0D800ADDCD8 /* interfaces.h in Headers */,
 				E1FE19D41E718F020018D409 /* Vector.h in Headers */,
-				148074E41FA10AAC004ED508 /* noflash.h in Headers */,
 				B67AE8421F91B1F100ADDCD8 /* utils.h in Headers */,
-				148074D21FA1038E004ED508 /* moonwalk.h in Headers */,
 				E1FE19CE1E718F020018D409 /* IVModelInfo.h in Headers */,
 				9A213B3F1F86625700518DE8 /* triggerbot.h in Headers */,
 				E1FE19C41E718F020018D409 /* CUserCmd.h in Headers */,
-				1441EF851F9B0E0F005529AF /* fakewalk.h in Headers */,
 				E1FE19C11E718F020018D409 /* C_BaseEntity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,40 +466,33 @@
 				9A213B2E1F8660FD00518DE8 /* DrawModelExecute.cpp in Sources */,
 				B67AE82F1F91AED700ADDCD8 /* netvarmanager.cpp in Sources */,
 				B67AE8451F91B20100ADDCD8 /* drawings.cpp in Sources */,
-				9A213B3A1F8661E300518DE8 /* skybox.cpp in Sources */,
-				14A1EF781FAA1A6700C1C940 /* smoothing.cpp in Sources */,
 				B67AE84A1F91B20800ADDCD8 /* bvars.cpp in Sources */,
 				14D91BFD1F99B58700252244 /* spectators.cpp in Sources */,
 				B67AE8551F91CE8800ADDCD8 /* antiaim.cpp in Sources */,
-				148074E31FA10AAC004ED508 /* noflash.cpp in Sources */,
 				9A213B3E1F86625700518DE8 /* triggerbot.cpp in Sources */,
 				B67AE8511F91CE7D00ADDCD8 /* aimbot.cpp in Sources */,
 				148074EC1FA11AD7004ED508 /* FrameStage.cpp in Sources */,
 				148074D81FA105C5004ED508 /* resolver.cpp in Sources */,
-				14E0EA071F9B3BCA00892575 /* fakelag.cpp in Sources */,
 				14D91C031F99B59A00252244 /* dlights.cpp in Sources */,
 				B67AE8591F91D0B200ADDCD8 /* autowall.cpp in Sources */,
 				B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */,
 				9ADC15EC1F8F77F600BBF4A7 /* esp.cpp in Sources */,
+				B6A954681FACAC0900351006 /* prediction.cpp in Sources */,
 				B67AE83B1F91B0D800ADDCD8 /* Info.cpp in Sources */,
-				14A1EF741FAA168800C1C940 /* rcs.cpp in Sources */,
-				14D91C001F99B58F00252244 /* recoilcrosshair.cpp in Sources */,
+				14D91C001F99B58F00252244 /* crosshair.cpp in Sources */,
 				B67AE8391F91B0D800ADDCD8 /* interfaces.cpp in Sources */,
 				9ADC15F01F8F7AFE00BBF4A7 /* spammer.cpp in Sources */,
 				9A213B451F866CCB00518DE8 /* BeginFrame.cpp in Sources */,
-				B67AE8381F91B0D800ADDCD8 /* Hooks.cpp in Sources */,
+				B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */,
 				9A213B311F8660FD00518DE8 /* OverrideView.cpp in Sources */,
 				9A213B361F86611C00518DE8 /* bhop.cpp in Sources */,
-				1441EF841F9B0E0F005529AF /* fakewalk.cpp in Sources */,
+				B6E2FA7C1FB04976008FE45C /* autoshoot.cpp in Sources */,
 				9A213B421F86632D00518DE8 /* clantag.cpp in Sources */,
-				148074DB1FA10639004ED508 /* showrank.cpp in Sources */,
 				9A213B321F8660FD00518DE8 /* PaintTraverse.cpp in Sources */,
 				B67AE84D1F91CD8200ADDCD8 /* menu.cpp in Sources */,
 				E1FE19DA1E718F230018D409 /* main.cpp in Sources */,
 				9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */,
-				14E0EA0F1F9B55A500892575 /* airstuck.cpp in Sources */,
 				B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */,
-				148074D11FA1038E004ED508 /* moonwalk.cpp in Sources */,
 				9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

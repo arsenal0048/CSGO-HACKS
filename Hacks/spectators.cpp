@@ -1,6 +1,8 @@
 #include "spectators.h"
 #include <list>
-// Thnx Bypass
+
+// Thanks @Bypass for this
+
 std::list<int> GetObservervators(int playerId)
 {
     std::list<int> list;

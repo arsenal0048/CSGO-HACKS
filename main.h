@@ -31,9 +31,9 @@
 
 using namespace std;
 
-#include "offsets.h"
+#include "offsets.h"    // OFFSET 
 
-#include "SDK/CEffects.h" // Thnx Rocco
+#include "SDK/CEffects.h" 
 #include "SDK/Vector.h"
 #include "SDK/Others.h"
 #include "SDK/common.h"
@@ -62,27 +62,17 @@ using namespace std;
 #include "SDK/VMT.h"
 
 #include "netvarmanager.h"
-
-/* Variables */
 #include "bvars.h"
-
-/* Interfaces */
 #include "interfaces.h"
-
-/* Drawings */
 #include "drawings.h"
 
 /* Utilities */
 #include "utils.h"
-
-/* Patternscanner */
 #include "patternscan.h"
 
-/* Hakes */
-#include "haker.h"
-
-/* Hooks */
-#include "Hooks.h"
+/* Hacks */
+#include "hacks.h"
+#include "hooks.h"
 
 
 #endif /* main_hpp */
