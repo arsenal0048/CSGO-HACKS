@@ -1,6 +1,7 @@
 //
 //  aimbot.cpp
 //  vHook
+// thanks pwned even though its from aimtux lol
 //
 
 #include "aimbot.h"
