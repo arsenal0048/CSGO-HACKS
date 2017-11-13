@@ -6,7 +6,7 @@
 #include "antiaim.h"
 
 Vector atTargets;
-
+/* WIP
 void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
 {
     
@@ -20,7 +20,8 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
     if(!localplayer)
         return;
     
-    if(!pInputSystem->IsButtonDown(KEY_LALT))
+    if(!pInputSystem->IsButtonDown(KEY_C
+    ))
         return;
     
     static int iChoked = -1;
@@ -44,7 +45,7 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
     
     
 }
-
+*/
 void Moonwalk(CUserCmd* cmd)
 {
     if(vars.misc.moonwalk)
