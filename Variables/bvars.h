@@ -65,9 +65,7 @@ public:
         bool autopistol = false;        // Pistol is like AK
         bool autocrouch = false;        // Crouch when something is in fov
         bool autostop   = false;        // Stops when something is in fov
-        
-        bool fakewalk   = false;        // Fake walk
-        
+                
         bool rcs        = false;        // Recoil control system
         int rcsf        = 0;            // Recoil control
 
@@ -124,7 +122,7 @@ public:
         bool autostrafe     = false;    // Strafes for you ofc
         bool cstrafe        = false;    // Circle strafes
         bool airstuck       = false;    // Airstuck
-        bool moonwalk       = false;    // Moonwalk
+        bool moonwalk       = true;    // Moonwalk
 
         
         int fov             = 10;       // FOV changer
