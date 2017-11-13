@@ -334,18 +334,17 @@ void cMenu::renderMisc(int x, int y)
     this->renderCheckbox(x + 115, y + 175, "NoScope", &vars.misc.noscope);
     this->renderCheckbox(x + 115, y + 190, "Spectator List", &vars.misc.showspectators);
     this->renderCheckbox(x + 115, y + 205, "Airstuck", &vars.misc.airstuck);
-    this->renderCheckbox(x + 115, y + 220, "Fakewalk", &vars.aimbot.fakewalk);
     
     vector<string> fakelag;
     
     fakelag.push_back("Simple");
     fakelag.push_back("Adaptive");
     
-    this->renderCheckbox(x + 115, y + 245, "FakeLag", &vars.misc.fakelag);
-    this->renderCombo(x + 15, y + 260, 100, 20, "Simple", fakelag, vars.misc.fakelagmode, &vars.fakelag_opend);
+    this->renderCheckbox(x + 115, y + 220, "FakeLag", &vars.misc.fakelag);
+    this->renderCombo(x + 15, y + 240, 100, 20, "Simple", fakelag, vars.misc.fakelagmode, &vars.fakelag_opend);
     if(!vars.fakelag_opend)
     {
-        this->renderSlider(x + 15, y + 275, 110, "", vars.misc.fakelagfactor, 14, 0);
+        this->renderSlider(x + 15, y + 255, 110, "", vars.misc.fakelagfactor, 14, 0);
     }
     
     
