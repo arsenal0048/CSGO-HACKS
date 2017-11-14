@@ -45,7 +45,7 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
     
     
 }
-*/
+// WIP
 void Moonwalk(CUserCmd* cmd)
 {
     if(vars.misc.moonwalk)
@@ -82,7 +82,7 @@ void Moonwalk(CUserCmd* cmd)
         cmd->buttons &= ~IN_MOVERIGHT;
     }
 }
-
+*/
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {
     
