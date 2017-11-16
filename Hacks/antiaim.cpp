@@ -6,83 +6,7 @@
 #include "antiaim.h"
 
 Vector atTargets;
-/* WIP
-void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
-{
-    
-    if(vars.aimbot.fakewalk)
-        return;
-    
-    if(!pEngine->IsInGame())
-        return;
-    
-    C_BaseEntity* localplayer = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if(!localplayer)
-        return;
-    
-    if(!pInputSystem->IsButtonDown(KEY_C
-    ))
-        return;
-    
-    static int iChoked = -1;
-    iChoked++;
-    
-    if (iChoked < 3)
-    {
-        *bSendPacket = false;
-        cmd->tick_count += 10;
-        cmd += 7 + cmd->tick_count % 2 ? 0 : 1;
-        cmd->buttons |= local->GetMoveType() == IN_BACK;
-        cmd->forwardmove = cmd->sidemove = 0.f;
-    }
-    else
-    {
-        *bSendPacket = true;
-        iChoked = -1;
-        pGlobals->frametime *= (local->GetVelocity().Length2D()) / 1.f;
-        cmd->buttons |= local->GetMoveType() == IN_FORWARD;
-    }
-    
-    
-}
-// WIP
-void Moonwalk(CUserCmd* cmd)
-{
-    if(vars.misc.moonwalk)
-        return;
-    
-    if(!pEngine->IsInGame())
-        return;
-    
-    C_BaseEntity* localplayer = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if(!localplayer)
-        return;
-    
-    if(cmd->forwardmove > 0)
-    {
-        cmd->buttons |= IN_BACK;
-        cmd->buttons &= ~IN_FORWARD;
-    }
-    
-    if(cmd->forwardmove < 0)
-    {
-        cmd->buttons |= IN_FORWARD;
-        cmd->buttons &= ~IN_BACK;
-    }
-    
-    if(cmd->sidemove < 0)
-    {
-        cmd->buttons |= IN_MOVERIGHT;
-        cmd->buttons &= ~IN_MOVELEFT;
-    }
-    
-    if(cmd->sidemove > 0)
-    {
-        cmd->buttons |= IN_MOVELEFT;
-        cmd->buttons &= ~IN_MOVERIGHT;
-    }
-}
-*/
+
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {
     
@@ -134,19 +58,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             {
                 cmd->viewangles.x = -89;
             }
-            if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Down)
-            {
-                cmd->viewangles.x = 179;
-            }
-            if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::FakeUp)
-            {
-                cmd->viewangles.x = -180;
-            }
-            if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Fakedown)
-            {
-                cmd->viewangles.x = 180;
-            }
-            
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Custom)
             {
                 if(bPacket)
