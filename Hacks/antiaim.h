@@ -12,11 +12,7 @@ enum VIEW_ANTIAIM_PITCH
 {
     Emotion     = 1,
     Up          = 2,
-    Down        = 3,
-    FakeUp      = 4,
-    Fakedown    = 5,
-    Tankp       = 6,
-    Custom      = 7,
+    Custom      = 3,
 };
 
 enum VIEW_ANTIAIM_YAW
@@ -54,8 +50,5 @@ enum VIEW_ANTIIAIM_FYAW
 };
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
-void Fakewalk(CUserCmd* cmd, C_BaseEntity* local);
-void Moonwalk(CUserCmd* cmd);
-
 
 
