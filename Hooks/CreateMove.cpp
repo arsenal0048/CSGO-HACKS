@@ -152,11 +152,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     clantag();                      // Clantag
     
     DoSpammer();                    // Spammer
-    
-    Fakewalk(cmd, local);           // Fakewalk
-    
-    Moonwalk(cmd);                  // Moonwalk
-    
+            
     Airstuck(cmd);                  // Airstuck
     
     RecoilControl(local, cmd);
