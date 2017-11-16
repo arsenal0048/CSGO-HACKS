@@ -122,8 +122,6 @@ public:
         bool autostrafe     = false;    // Strafes for you ofc
         bool cstrafe        = false;    // Circle strafes
         bool airstuck       = false;    // Airstuck
-        bool moonwalk       = true;    // Moonwalk
-
         
         int fov             = 10;       // FOV changer
         bool clantag        = false;    // Clantag changer
