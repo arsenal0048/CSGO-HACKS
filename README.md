@@ -1,5 +1,11 @@
 # Barbossa
 ---
+Info:
+No I did not make this viking posted this to my discord "Mac Hacks" months ago after his website he made went down I am greatful that he made, all I am doing is improving it or making changes the menu it currently is using is a placeholder I will be either remaking the menu or going back to the old one I still haven't decided yet 
+
+---
+
+---
 
 How to inject:
 
@@ -13,9 +19,7 @@ open terminal and do "sudo ./osxinj csgo_osx64 libvHook.dylib"
 
 Video tutorial: https://youtu.be/lX-zF0i4aOU
 
----
-
-If you have any problems create an issue
+If you have any problems feel free to create an issue
 
 ---
 
@@ -25,6 +29,8 @@ Q: Menu key?
 
 A: Insert
 
-Q: Whats your steam
+Q: How do I inject this?
 
-A: http://steamcommunity.com/id/kysfgmate/
+A: If you can't follow simple instructions in a video or on github you shouldn't be on a Mac nor cheating 
+
+---
