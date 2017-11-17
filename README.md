@@ -11,6 +11,8 @@ Put in injector folder
 
 open terminal and do "sudo ./osxinj csgo_osx64 libvHook.dylib"
 
+Video tutorial: https://youtu.be/lX-zF0i4aOU
+
 ---
 
 If you have any problems create an issue
