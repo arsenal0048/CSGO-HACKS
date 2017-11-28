@@ -53,73 +53,6 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
     
 }
 
-void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
-{
-    if(vars.visuals.bomb)
-        return;
-    
-    if(!bomb->IsBombTicking())
-        return;
-    
-    boxstruct Box;
-    
-    if(!DrawPlayerBox(bomb, Box))
-        return;
-    
-    float flBlow    = bomb->GetBombTime();
-    float bombTimer = flBlow - (pGlobals->interval_per_tick * local->GetTickBase());
-    
-    char buffer[128];
-    
-    if((local->HasDefuser() && flBlow < 5.25f) || (!local->HasDefuser() && flBlow < 10.25f))
-        sprintf(buffer, "No time %.f", bombTimer);
-    
-    if((local->HasDefuser() && flBlow > 5.25f) || (!local->HasDefuser() && flBlow > 10.25f))
-        sprintf(buffer, "Bomb %.f", bombTimer);
-    
-    if (bomb->IsBombDefused() || !bomb->IsBombTicking() || bombTimer <= 0.f)
-        sprintf(buffer, "Bomb");
-    
-    draw->drawstring(Box.x, Box.y, Color::Red(), espfont, buffer);
-}
-
-void DrawOtherESP()
-{
-    if(!vars.visuals.enabled)
-        return;
-    
-    if(vars.misc.antiscreenshot && pEngine->IsTakingScreenshot())
-        return;
-    
-    int getscreenw, getscreenh;
-    pEngine->GetScreenSize(getscreenw, getscreenh);
-    
-    C_BaseEntity* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    for(int i = 0; i < pEntList->GetHighestEntityIndex(); i++)
-    {
-        auto* entity = pEntList->GetClientEntity(i);
-        
-        if(!entity)
-            continue;
-    
-        int classID = entity->GetClientClass()->m_ClassID;
-        C_BaseCombatWeapon* weapon  = (C_BaseCombatWeapon*)entity;
-        C_BasePlantedC4* pC4        = (C_BasePlantedC4*)entity;
-        
-        
-        if(!weapon || !pC4)
-            continue;
-        
-        
-        // Draw planted bomb
-        if(vars.visuals.bomb && classID == CPlantedC4)
-            DrawBombPlanted(local, pC4);
-    
-    }
-    
-}
-
 void DrawPlayerESP()
 {
     if(!vars.visuals.enabled)
@@ -204,9 +137,6 @@ void DrawPlayerESP()
             
             if((entity->IsScoped()))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPED", true);
-            
-            if((entity->GetFlashDuration() - pGlobals->curtime > 2.0f))
-                draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Yellow(), espfont, "Flashed");
 
         }
     
