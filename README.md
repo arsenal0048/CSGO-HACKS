@@ -32,5 +32,5 @@ A: Insert
 Q: How do I inject this?
 
 A: If you can't follow simple instructions in a video or on github you shouldn't be on a Mac nor cheating 
-
+ 
 ---
