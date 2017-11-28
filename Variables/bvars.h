@@ -88,7 +88,6 @@ public:
         bool skeleton   = false;        // Skeleton ESP
         bool snapline   = false;        // Snaplines obv
         bool cash       = false;        // Cash ESP
-        bool bomb       = false;        // Bomb Timer
         bool dlights    = false;        // Dlight 
         bool rcrosshair = false;        // Recoil Crosshair (Shows but doesn't move)
         
