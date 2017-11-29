@@ -3,8 +3,11 @@
 Info:
 No I did not make this viking posted this to my discord "Mac Hacks" months ago after his website he made went down I am greatful that he made, all I am doing is improving it or making changes. The current menu Barbossa currently is using is a placeholder I will be either remaking the menu or going back to the old one I still haven't decided yet.
 
----
+# Discord
 
+https://discord.gg/uWDyUeB
+
+---
 ---
 
 How to inject:
@@ -31,6 +34,6 @@ A: Insert
 
 Q: How do I inject this?
 
-A: If you can't follow simple instructions in a video or on github you shouldn't be on a Mac nor cheating 
+A: If you can't follow simple instructions in a video or on github you shouldn't be on a Mac nor cheating
 
 ---
