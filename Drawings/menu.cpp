@@ -305,7 +305,6 @@ void cMenu::renderVis(int x, int y)
     // Right Side
     draw->drawstring(x + 215, y + 15, FontColor, heading, "Visuals cont.");
     
-    this->renderCheckbox(x + 265, y + 35, "Bomb Timer", &vars.visuals.bomb);
     this->renderCheckbox(x + 265, y + 35, "Health Bar", &vars.visuals.health);
     this->renderCheckbox(x + 265, y + 50, "Armour Bar", &vars.visuals.armour);
     this->renderCheckbox(x + 265, y + 65, "No Recoil", &vars.misc.norecoil);
@@ -313,8 +312,6 @@ void cMenu::renderVis(int x, int y)
     this->renderCheckbox(x + 265, y + 95, "Recoil Crosshair", &vars.visuals.rcrosshair);
     this->renderCheckbox(x + 265, y + 110, "DLights", &vars.visuals.dlights);
     this->renderCheckbox(x + 265, y + 125, "World Paint", &vars.misc.worldpaint);
-    
-
     
 }
 
