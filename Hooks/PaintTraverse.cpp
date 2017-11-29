@@ -70,9 +70,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         {   // Drawing features / own scope just for readablity
             
             DrawPlayerESP();    // Player esp
-            
-            DrawOtherESP();     // Non player esp
-            
+                        
             DrawScope(local);   // Draws the crosshar for noscope
             
             rCrosshair(local);  // Draws recoil crosshair
