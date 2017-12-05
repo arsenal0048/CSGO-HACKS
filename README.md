@@ -5,7 +5,7 @@ No I did not make this viking posted this to my discord "Mac Hacks" months ago a
 
 # Discord
 
-https://discord.gg/uWDyUeB
+https://discord.gg/NSBEH8A
 
 ---
 ---
