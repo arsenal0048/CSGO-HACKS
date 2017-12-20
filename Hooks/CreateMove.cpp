@@ -85,24 +85,6 @@ void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
     {
         sendpacket = true;
         return;
-void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
-{
-    if (!vars.misc.fakelag)
-        return;
-    
-    if(!local)
-        return;
-    
-    if(!local->GetAlive())
-        return;
-    
-    if (local->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
-        return;
-    
-    if (cmd->buttons & IN_ATTACK)
-    {
-        sendpacket = true;
-        return;
     }
     
     static int FakelagTick;
@@ -115,12 +97,12 @@ void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
     }
     
     
-    if(vars.misc.fakelagmode == 1)
+    if(vars.misc.fakelagtype == 1)
     {
         sendpacket = FakelagTick < 16 - vars.misc.fakelagfactor;
     }
     
-    if(vars.misc.fakelagmode == 2)
+    if(vars.misc.fakelagtype == 2)
     {
         auto velocity = local->GetVelocity();
         velocity.z = 0.f;
@@ -158,7 +140,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     CirlceStrafe(local, cmd, vOldAngles);
     
     DoAim(cmd, local, weapon, sendpacket);
-                
+    
     DoAntiaim(cmd, local, weapon, sendpacket);
     
     ContinuousPistols(cmd, weapon); // will continously fire pistol when trigger is  held
@@ -170,14 +152,14 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     clantag();                      // Clantag
     
     DoSpammer();                    // Spammer
-            
+    
     Airstuck(cmd);                  // Airstuck
     
     RecoilControl(local, cmd);
     
     if(draw->m_szChangedValue[2].length() > 0)                      // Name Changer
         ChangeName(draw->m_szChangedValue[2].c_str());
-        
+    
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
         SetClanTag(draw->m_szChangedValue[3].c_str(), "Xanax");
     
@@ -263,3 +245,4 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     return false;
 }
+
