@@ -13,9 +13,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if(!vars.misc.antiaim)
         return;
     
-    if(vars.misc.knifeaa && (weapon->IsKnife() || weapon->IsBomb()))
-        return;
-    
     if(weapon->IsGrenade())
         return;
     
