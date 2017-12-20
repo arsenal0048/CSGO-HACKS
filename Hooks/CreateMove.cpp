@@ -85,6 +85,24 @@ void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
     {
         sendpacket = true;
         return;
+void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool sendpacket)
+{
+    if (!vars.misc.fakelag)
+        return;
+    
+    if(!local)
+        return;
+    
+    if(!local->GetAlive())
+        return;
+    
+    if (local->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
+        return;
+    
+    if (cmd->buttons & IN_ATTACK)
+    {
+        sendpacket = true;
+        return;
     }
     
     static int FakelagTick;
