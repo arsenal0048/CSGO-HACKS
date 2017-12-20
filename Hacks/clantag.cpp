@@ -12,69 +12,90 @@ void clantag()
     
     if (Tick > 0 && Tick < 15)
     {
-        SetClanTag("Barbossa", "Barbossa");
+        SetClanTag("x            ", "Xanax");
     }
     else if (Tick > 30 && Tick < 45)
     {
-        SetClanTag("B arbossa", "Barbossa");
+        SetClanTag("xa           ", "Xanax");
     }
     else if (Tick > 60 && Tick < 75)
     {
-        SetClanTag("B a rbossa", "Barbossa");
+        SetClanTag("xan          ", "Xanax");
     }
     else if (Tick > 90 && Tick < 105)
     {
-        SetClanTag("B a r bossa", "Barbossa");
+        SetClanTag("xana         ", "Xanax");
     }
     else if (Tick > 120 && Tick < 135)
     {
-        SetClanTag("B a r b ossa", "Barbossa");
+        SetClanTag("xanax         ", "Xanax");
     }
     else if (Tick > 150 && Tick < 165)
     {
-        SetClanTag("B a r b o ssa", "Barbossa");
+        SetClanTag(" xanax        ", "Xanax");
     }
     else if (Tick > 180 && Tick < 195)
     {
-        SetClanTag("B a r b o s sa", "Barbossa");
+        SetClanTag("  xanax       ", "Xanax");
     }
     else if  (Tick > 210 && Tick < 225)
     {
-        SetClanTag("B a r b o s s a", "Barbossa");
+        SetClanTag("   xanax      ", "Xanax");
     }
-    else if  (Tick > 240 && Tick < 255)
+    else if (Tick > 240 && Tick < 255)
     {
-        SetClanTag("B a r b o s sa", "Barbossa");
+        SetClanTag("    xanax     ", "Xanax");
     }
-    else if  (Tick > 270 && Tick < 285)
+    else if (Tick > 270 && Tick < 285)
     {
-        SetClanTag("B a r b o ssa", "Barbossa");
+        SetClanTag("     xanax    ", "Xanax");
     }
-    else if  (Tick > 300 && Tick < 315)
+    else if (Tick > 300 && Tick < 315)
     {
-        SetClanTag("B a r b ossa", "Barbossa");
+        SetClanTag("      xanax   ", "Xanax");
     }
-    else if  (Tick > 330 && Tick < 345)
+    else if (Tick > 330 && Tick < 345)
     {
-        SetClanTag("B a r bossa", "Barbossa");
-    }
-    else if  (Tick > 360 && Tick < 375)
-    {
-        SetClanTag("B a rbossa", "Barbossa");
-    }
-    else if  (Tick > 390 && Tick < 405)
-    {
-        SetClanTag("B arbossa", "Barbossa");
-    }
-    else if  (Tick > 420 && Tick < 435)
-    {
-        SetClanTag("Barbossa", "Barbossa");
-    }
     
+        SetClanTag("       xanax  ", "Xanax");
+    }
+    else if (Tick > 360 && Tick < 375)
+    {
+        SetClanTag("        xanax  ", "Xanax");
+    }
+    else if (Tick > 390 && Tick < 405)
+    {
+        SetClanTag("         xanax ", "Xanax");
+    }
+    else if (Tick > 420 && Tick < 435)
+    {
+        SetClanTag("          xanax", "Xanax");
+    }
+    else if (Tick > 450 && Tick < 465)
+    {
+        SetClanTag("           xana", "Xanax");
+    }
+    else if (Tick > 480 && Tick < 495)
+    {
+        SetClanTag("            xan", "Xanax");
+    }
+    else if (Tick > 510 && Tick < 525)
+    {
+        SetClanTag("             xa", "Xanax");
+    }
+    else if (Tick > 540 && Tick < 555)
+    {
+        SetClanTag("              x", "Xanax");
+    }
+    else if (Tick > 570 && Tick < 585)
+    {
+        SetClanTag("               ", "Xanax");
+    }
+
+
     // Reset 
-    if(Tick > 435)
+    if(Tick > 585)
     {
         Tick = 0;
-    }
-    
+    }    
 }
