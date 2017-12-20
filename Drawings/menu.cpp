@@ -1,79 +1,83 @@
 //
 //  menu.cpp
-//  vHook
+//  macOS base
 //
 
 #include "menu.h"
 
 cMenu* menu = new cMenu();
-menuT tab;
-colors col;
 
-Color ControlBackground = Color(44, 44, 44, 255);
-Color ControlColor      = Color(30, 30, 30, 255);
+// Colours
+
+Color Red             = Color(255, 0, 57, 255);
+Color inactive          = Color(82, 82, 82, 255);
+Color MainColor         = Red;
 
 Color FontColor         = Color(250, 250, 250, 250);
-Color inactive          = Color(82, 82, 82, 255);
-Color Menu              = Color(255, 0, 0, 255);
-Color Cursor            = Color(255, 0, 0, 255);
-Color MainColor         = Color(255, 0, 0, 255);
+Color background        = Color(40, 40, 40, 255);
+Color border1           = Color(60, 60, 60, 255);
+Color border2           = Color(40, 40, 40, 255);
+
 
 bool WasPressed, WasReleased;
-
-//===================== WasPressed =========================//
-
-void Pressed(ButtonCode_t code)
-{
-    if (pInputSystem->IsButtonDown(code))
-    {
+auto Pressed (ButtonCode_t code) -> void {
+    
+    if (pInputSystem->IsButtonDown(code)) {
+        
         WasPressed = true;
-    }
-    else if (!(pInputSystem->IsButtonDown(code)))
-    {
-        if (WasPressed)
+        
+    } else if (!(pInputSystem->IsButtonDown(code))) {
+        
+        if (WasPressed) {
+            
             WasReleased = true;
-        else
-        {
-                WasReleased = false;
+            
+        } else {
+            
+            WasReleased = false;
+            
         }
+        
         WasPressed = false;
+        
     }
+    
 }
 
-//================== Buttons and shit =====================//
+// Menu components
 
-void cMenu::renderCheckbox(int x, int y, const char* str, bool *var)
-{
-    int size = 12;
+void cMenu::renderCheckbox(int x, int y, const char* str, bool* var) {
     
-    draw->fillrgba(x, y, size, size, ControlBackground);
+    int size = 10;
+    
+    Color col = Color(128, 128, 133, 255);
+    
+    draw->RectOutlined(x, y, size - 1, size - 1, 1, background, col); // Ouside box
     
     if (*var)
-        draw->fillrgba( x, y, size, size, MainColor );
+        draw->fillrgba(x + 1, y + 1, size - 3, size - 3, col);
     
-    if (draw->inArea(x, y, size, size))
-    {
-        if (*var)
-            draw->fillrgba( x, y, size, size, MainColor );
+    if (draw->inArea(x, y, size + 40, size)) {
         
         if (WasReleased)
             *var = !*var;
     }
     
-    draw->drawbox(x, y, size, size, Color::Black());        // Outline
-    draw->drawstring(x - 100, y, FontColor, mFont, str);
+    draw->drawstring(x + 14, y - 3, FontColor, mFont, str);
+    
 }
 
-void cMenu::renderSlider(int x, int y, int w, const char* szString, int &value, int max, int min)
-{
-    int h = 8;
+// The sliders are kinda broken, if you click past the ends itll still move
+// for ints
+void cMenu::renderSlider(int x, int y, int w, const char* szString, int& value, int max, int min) {
     
+    int h = 8;
     int curValue = value * ((float)w / (float)(max));
     
-    if (draw->GetMouse().x > x - w / 2 && draw->GetMouse().y > y - 2 && draw->GetMouse().x < x + w + w / 2 && draw->GetMouse().y < y + h + 2)
-    {
-        if (pInputSystem->IsButtonDown(MOUSE_LEFT))
-        {
+    if (draw->GetMouse().x > x - w / 2 && draw->GetMouse().y > y - 2 && draw->GetMouse().x < x + w + w / 2 && draw->GetMouse().y < y + h + 2) {
+        
+        if (pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+            
             value = (draw->CalcPos(x) / ((float)w / (float)(max)));
             
             if (value > max)
@@ -81,27 +85,29 @@ void cMenu::renderSlider(int x, int y, int w, const char* szString, int &value, 
             
             if (value < min)
                 value = min;
+            
         }
         
     }
     
+    draw->RectOutlined(x, y + 5, w + 2, h, 1, background, Color::Black());
+    draw->fillrgba(x, y + 5, w + 2, h, Color(100, 100, 100, 255));
+    draw->fillrgba(x, y + 5, curValue, h, Red);
     
-    draw->RectOutlined(x, y + 5, w + 2, h, 1, ControlBackground, Color::Black());
-    draw->fillrgba( x, y + 5, curValue, h, MainColor );                                             // Color till cursor
-    draw->drawstring(x + curValue - 5, y + 3, Color::White(), sFont, to_string(value).c_str());
-    draw->drawstring(x, y - 9, FontColor, mFont, szString);
+    draw->drawstring(x + curValue - 5, y + 3, FontColor, mFont, to_string(value).c_str());
+    
 }
 
-void cMenu::renderSlider(int x, int y, int w, const char* szString, float &value, int max, int min)
-{
-    int h = 8;
+// for floats
+void cMenu::renderSlider(int x, int y, int w, const char* szString, float& value, int max, int min) {
     
+    int h = 8;
     int curValue = value * ((float)w / (float)(max));
     
-    if (draw->GetMouse().x > x - w / 2 && draw->GetMouse().y > y - 2 && draw->GetMouse().x < x + w + w / 2 && draw->GetMouse().y < y + h + 2)
-    {
-        if (pInputSystem->IsButtonDown(MOUSE_LEFT))
-        {
+    if (draw->GetMouse().x > x - w / 2 && draw->GetMouse().y > y - 2 && draw->GetMouse().x < x + w + w / 2 && draw->GetMouse().y < y + h + 2) {
+        
+        if (pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+            
             value = (draw->CalcPos(x) / ((float)w / (float)(max)));
             
             if (value > max)
@@ -109,43 +115,48 @@ void cMenu::renderSlider(int x, int y, int w, const char* szString, float &value
             
             if (value < min)
                 value = min;
+            
         }
         
     }
     
+    draw->RectOutlined(x, y + 5, w + 2, h, 1, background, Color::Black());
+    draw->fillrgba(x, y + 5, w + 2, h, Color(100, 100, 100, 255));
+    draw->fillrgba(x, y + 5, curValue, h, Red);
     
-    draw->RectOutlined(x, y + 5, w + 2, h, 1, ControlBackground, Color::Black());
-    draw->fillrgba( x, y + 5, curValue, h, MainColor );                                             // Color till cursor
-    draw->drawstring(x + curValue - 5, y + 3, Color::White(), sFont, to_string(value).c_str());
-    draw->drawstring(x, y - 9, FontColor, mFont, szString);
+    draw->drawstring(x + curValue - 5, y + 3, FontColor, mFont, to_string(value).c_str());
+    
 }
 
-void cMenu::renderCombo(int x, int y, int w, int h, const char* szString, vector<string> szValue, int& currValue, bool* bOpend)
-{
+void cMenu::renderCombo(int x, int y, int w, int h, const char* szString, vector<string> szValue, int& currValue, bool* bOpend) {
+    
     int Y = y + h;
     
-    if(draw->inArea(x, y, w, h) && WasReleased)
-    {
-        *bOpend = !*bOpend;
+    Color col1  = Color(44, 44, 44, 255);
+    Color col2  = Color(30, 30, 30, 255);
+    
+    if(draw->inArea(x, y, w, h)) {
+        if(WasReleased) {
+            *bOpend = !*bOpend;
+        }
     }
     
-    if (*bOpend)
-    {
-        for ( int i = 0; i < szValue.size(); i++ )
-        {
-            auto bHover = draw->inArea(x, Y + 2 + ( i * 20 ), w, 18);
+    if (*bOpend) {
+        
+        for ( int i = 0; i < szValue.size(); i++ ) {
             
-            draw->fillrgba( x, Y + 2 + ( i * 20 ), w, 18, bHover ? (col.menu == 0 ? Color( 255, 0, 0, 150 ) : Color(199, 148, 208, 150)) : ControlColor ); // Combo box fill colour
-            draw->drawboxoutline( x, Y + 2 + ( i * 20 ), w, 18, Color( 90, 90, 90, 255 ) );
-            draw->drawstring(x + 5, Y + 3 + (i*20), Color::White(), cFont, szValue[i].c_str());
+            auto bHover = draw->inArea(x, Y + 2 + (i * h), w, 18);
+            draw->fillrgba(x, Y + (i * h), w, h, bHover ? col1 : col2 );
+            draw->drawstring(x + 10, Y + 3 + (i * h), Color(175, 175, 175, 255), mFont, szValue[i].c_str());
             
-            if (draw->inArea(x, Y + 2 + ( i * 20 ), w, 18))
-            {
-                if(WasPressed)
-                {
+            
+            if (draw->inArea(x, Y + 2 + ( i * h ), w, 18)) {
+                
+                if(WasPressed){
                     currValue = i;
                     *bOpend = false;
                 }
+                
             }
             
         }
@@ -158,10 +169,8 @@ void cMenu::renderCombo(int x, int y, int w, int h, const char* szString, vector
         szString = szValue[currValue].c_str();
     
     // Draws the box
-    draw->fillrgba( x, y, w, h, ControlColor );
-    draw->fillrgba( x + w - h, y, h, h, ControlBackground );
-    draw->drawboxoutline( x, y, w, h, MainColor );
-    draw->drawstring(x + 5, y + (h/2) - 7, FontColor, cFont, szString);
+    draw->fillrgba(x, y, w, h, Color(40, 40, 40, 255));
+    draw->drawstring(x + 10, y + (h / 2) - 7, Color(175, 175, 175, 255), mFont, szString);
     
     
     if (!*bOpend)
@@ -186,31 +195,8 @@ void cMenu::renderCombo(int x, int y, int w, int h, const char* szString, vector
         draw->fillrgba( ( x + w - h + 118 - 107 ), ( y + 10 ), 1, 2, Color( 255, 255, 255, 255 ) );
         draw->fillrgba( ( x + w - h + 119 - 107 ), ( y + 11 ), 1, 1, Color( 255, 255, 255, 255 ) );
     }
-}
-
-void cMenu::renderButton(int x, int y, const char* szString, bool* var)
-{
-    int w = 60;
-    int h = 20;
     
-    if(draw->inArea(x, y, w, h))
-    {
-        if(WasPressed)
-        {
-            *var = true;
-        }
-    }
-    else
-    {
-        *var = false;
-    }
-    
-    bool bHovering = draw->inArea(x, y, w, h);
-    draw->drawgradient(x, y, w, h, bHovering ? Color(255, 136, 57, 150) : Color(44, 44, 44, 255), Color(24, 24, 24, 255));
-    draw->drawbox(x, y, w, h, MainColor);
-    draw->drawstring(x + w / 2, y + h / 2, FontColor, cFont, szString, true);
 }
-
 
 void cMenu::playerbutton(int x, int y, int w, int h, int index, int& playercount, const char* szString)
 {
@@ -225,216 +211,247 @@ void cMenu::playerbutton(int x, int y, int w, int h, int index, int& playercount
     }
     
     bool bHovering = draw->inArea(x, y, w, h);
-    draw->drawgradient(x, y, w, h, bHovering ? Color(60, 60, 60, 255), ControlBackground : Color(44, 44, 44, 255), Color(24, 24, 24, 255));
-    draw->drawbox(x, y, w, h, MainColor);
-    draw->drawstring(x + w / 2, y + h / 2, FontColor, cFont, szString, true);
+    draw->drawgradient(x, y, w, h, bHovering ? Color(60, 60, 60, 255), FontColor : Color(44, 44, 44, 255), Color(24, 24, 24, 255));
+    draw->drawbox(x, y, w, h, FontColor);
+    draw->drawstring(x + w / 2, y + h / 2, FontColor, mFont, szString, true);
 }
-
-
-
-
-//=====================Menu Tabs=========================//
-
-enum mTab
-{
-    Null    = 0,
-    AimTab  = 1,
-    VisTab  = 2,
-    MiscTab = 3,
-    PlayerTab = 4,
-    ColorsTab = 5,
-};
-
-void cMenu::renderAim(int x, int y)
-{
-    // Legit
-    draw->drawstring(x + 65, y + 15, FontColor, heading, "Legit");
-    vector<string> Hitbox;
-    vector<int> hitboxes;
-
-    // Hitbox Combo WIP
-    Hitbox.push_back("Head");
-    Hitbox.push_back("Neck");
-    Hitbox.push_back("LowerNeck");
-    Hitbox.push_back("Pelvis");
-    Hitbox.push_back("Body");
-    Hitbox.push_back("UpperChest");
-
+// Made by ViKiNG
+void cMenu::drawcolorpicker(int x, int y, const char *szString, Color &col) {
     
-    this->renderCheckbox(x + 115, y + 35, "Enabled", &vars.aimbot.enabled);
-    this->renderCheckbox(x + 115, y + 50, "Trigger", &vars.aimbot.trigger);
-    this->renderSlider(x + 15, y + 70, 110, "FOV", vars.aimbot.fov, 180, 0);     
-    this->renderSlider(x + 15, y + 90, 110, "Hitbox", vars.aimbot.hitbox, 20, 0);
-    this->renderCheckbox(x + 115, y + 105, "RCS", &vars.aimbot.rcs);
-    this->renderSlider(x + 15, y + 125, 110, "", vars.aimbot.rcsf, 50, 0);
+    int oner = 6;
+    float flRnbw = 0.0005f;
+    int currPosX, currPosY;
     
-    
-    
-    // Rage
-    draw->drawstring(x + 215, y + 15, FontColor, heading, "Rage");
-    
-    this->renderCheckbox(x + 265, y + 35, "Silent Aim", &vars.aimbot.silent);
-    this->renderCheckbox(x + 265, y + 50, "Prediction", &vars.aimbot.prediction);
-    this->renderCheckbox(x + 265, y + 65, "Autowall", &vars.aimbot.autowall);
-    this->renderSlider(x + 165, y + 80, 110, "", vars.aimbot.mindmg, 100, 0);
-    this->renderCheckbox(x + 265, y + 95, "Hitscan", &vars.aimbot.hitscan);
-    this->renderCheckbox(x + 265, y + 110, "Autoshoot", &vars.aimbot.autoshoot);
-    this->renderCheckbox(x + 265, y + 125, "AutoPistol", &vars.aimbot.autopistol);
-    this->renderCheckbox(x + 265, y + 140, "AutoScope", &vars.aimbot.autoscope);
-    this->renderCheckbox(x + 265, y + 155, "Autostop", &vars.aimbot.autostop);
-    this->renderCheckbox(x + 265, y + 170, "Autocrouch", &vars.aimbot.autocrouch);
-}
-
-void cMenu::renderVis(int x, int y)
-{
-    draw->drawstring(x + 65, y + 15, FontColor, heading, "Visuals");
-    
-    this->renderCheckbox(x + 115, y + 35, "Enabled", &vars.visuals.enabled);
-    this->renderCheckbox(x + 115, y + 50, "Enemy Only", &vars.visuals.enemyonly);
-    this->renderCheckbox(x + 115, y + 65, "Visual Only", &vars.visuals.visonly);
-    this->renderCheckbox(x + 115, y + 80, "Box", &vars.visuals.box);
-    this->renderCheckbox(x + 115, y + 95, "Name", &vars.visuals.name);
-    this->renderCheckbox(x + 115, y + 110, "Health", &vars.visuals.healthtext);
-    this->renderCheckbox(x + 115, y + 125, "Cash", &vars.visuals.cash);
-    this->renderCheckbox(x + 115, y + 140, "Snapline", &vars.visuals.snapline);
-    this->renderCheckbox(x + 115, y + 155, "Skeleton", &vars.visuals.skeleton);
-    this->renderCheckbox(x + 115, y + 170, "Player Chams", &vars.visuals.chams);
-
-
-    
-    // Right Side
-    draw->drawstring(x + 215, y + 15, FontColor, heading, "Visuals cont.");
-    
-    this->renderCheckbox(x + 265, y + 35, "Bomb Timer", &vars.visuals.bomb);
-    this->renderCheckbox(x + 265, y + 50, "Health Bar", &vars.visuals.health);
-    this->renderCheckbox(x + 265, y + 65, "Armour Bar", &vars.visuals.armour);
-    this->renderCheckbox(x + 265, y + 80, "No Recoil", &vars.misc.norecoil);
-    this->renderCheckbox(x + 265, y + 95, "No Visual", &vars.misc.novisual);
-    this->renderCheckbox(x + 265, y + 110, "Recoil Crosshair", &vars.visuals.rcrosshair);
-    this->renderCheckbox(x + 265, y + 125, "DLights", &vars.visuals.dlights);
-    this->renderCheckbox(x + 265, y + 140, "World Paint", &vars.misc.worldpaint);
-    
-
-    
-}
-
-void cMenu::renderMisc(int x, int y)
-{
-    draw->drawstring(x + 65, y + 15, FontColor, heading, "Misc");
-    
-    this->renderCheckbox(x + 115, y + 35, "Bhop", &vars.misc.bhop);
-    this->renderSlider(x + 15, y + 55, 110, "FOV", vars.misc.fov, 70, 0);
-    this->renderCheckbox(x + 115, y + 70, "Auto Strafe", &vars.misc.autostrafe);
-    this->renderCheckbox(x + 115, y + 85, "Circle Strafe", &vars.misc.cstrafe);
-    this->renderCheckbox(x + 115, y + 100, "Show Ranks", &vars.misc.showrank);
-    this->renderCheckbox(x + 115, y + 115, "Clan Tag", &vars.misc.clantag);
-    this->renderCheckbox(x + 115, y + 130, "No Flash", &vars.misc.noflash);
-    this->renderSlider(x + 15, y + 145, 110, "", vars.misc.flashalpha, 255, 0);
-    this->renderCheckbox(x + 115, y + 160, "Spammer", &vars.misc.spammer);
-    this->renderCheckbox(x + 115, y + 175, "NoScope", &vars.misc.noscope);
-    this->renderCheckbox(x + 115, y + 190, "Spectator List", &vars.misc.showspectators);
-    this->renderCheckbox(x + 115, y + 205, "Airstuck", &vars.misc.airstuck);
-    
-    vector<string> fakelag;
-    
-    fakelag.push_back("Simple");
-    fakelag.push_back("Adaptive");
-    
-    this->renderCheckbox(x + 115, y + 220, "FakeLag", &vars.misc.fakelag);
-    this->renderCombo(x + 15, y + 240, 100, 20, "Simple", fakelag, vars.misc.fakelagmode, &vars.fakelag_opend);
-    if(!vars.fakelag_opend)
-    {
-        this->renderSlider(x + 15, y + 255, 110, "", vars.misc.fakelagfactor, 14, 0);
-    }
-    
-    
-    // Left Side
-    vector<string> antiaim_pitch;
-    vector<string> antiaim_yaw;
-    vector<string> antiaim_fyaw;
-    
-    antiaim_pitch.push_back("Off");
-    antiaim_pitch.push_back("Emotion");
-    antiaim_pitch.push_back("Up");
-    antiaim_pitch.push_back("Down");
-    antiaim_pitch.push_back("FakeUp");
-    antiaim_pitch.push_back("FakeDown");
-    antiaim_pitch.push_back("Tankp");
-    antiaim_pitch.push_back("Custom");
-
-    antiaim_yaw.push_back("Off");
-    antiaim_yaw.push_back("Backwards");
-    antiaim_yaw.push_back("Jitter");
-    antiaim_yaw.push_back("FakeTroll");
-    antiaim_yaw.push_back("FakeStatic");
-    antiaim_yaw.push_back("FJitter");
-    antiaim_yaw.push_back("SlowSpin");
-    antiaim_yaw.push_back("FastSpin");
-    antiaim_yaw.push_back("RandomBackJitter");
-    antiaim_yaw.push_back("BackJitter");
-    antiaim_yaw.push_back("LowerYaw");
-    antiaim_yaw.push_back("SidewaysLeft");
-    antiaim_yaw.push_back("Sideways Right");
-    antiaim_yaw.push_back("LBYBreaker");
-    antiaim_yaw.push_back("Skeet");
-    antiaim_yaw.push_back("Icecream");
-    antiaim_yaw.push_back("CustomAA");
-
-    antiaim_fyaw.push_back("Off");
-    antiaim_fyaw.push_back("FakeAngel");
-    antiaim_fyaw.push_back("FakeSpin");
-    antiaim_fyaw.push_back("FakeLBYHook");
-    antiaim_fyaw.push_back("FakeTwoStep");
-    antiaim_fyaw.push_back("FakeLowerBody135");
-    antiaim_fyaw.push_back("FakeInverseRotation");
-    antiaim_fyaw.push_back("FakeJitter");
-    antiaim_fyaw.push_back("FakeLBY");
-    antiaim_fyaw.push_back("FakeSideLBY");
-    antiaim_fyaw.push_back("FakeHead");
-
-    
-    draw->drawstring(x + 215, y + 15, FontColor, heading, "More Misc");
-    
-    this->renderCheckbox(x + 265, y + 35, "Anti Untrust", &vars.misc.antiuntrust);
-    this->renderCheckbox(x + 265, y + 50, "AntiAim",&vars.misc.antiaim);
-    this->renderCheckbox(x + 265, y + 65, "Thirdperson mode", &vars.misc.thirdpersonmode);
-    this->renderCheckbox(x + 265, y + 80, "At Targers", &vars.misc.attargets);
-    this->renderCheckbox(x + 265, y + 95, "Fake", &vars.misc.fakeaa);
-    this->renderCheckbox(x + 265, y + 110, "Disable AA with Knife", &vars.misc.knifeaa);
-    
-    this->renderCombo(x + 165, y + 125, 112, 20, "Off", antiaim_pitch, vars.misc.aaX, &vars.aaX_opend);
-    
-    if(!vars.aaX_opend)
-        this->renderCombo(x + 165, y + 150, 112, 20, "Off", antiaim_yaw, vars.misc.aaY, &vars.aaY_opend);
-    
-    if(((!vars.aaY_opend) && !vars.aaY_opend) && !vars.aaX_opend)
-        this->renderCombo(x + 165, y + 175, 112, 20, "Off", antiaim_fyaw, vars.misc.FaaY, &vars.FaaY_opend);
-    
-    if(vars.misc.aaX == 7)
-    {
-        if(((!vars.aaX_opend) && !vars.aaY_opend) && !vars.FaaY_opend)
-            this->renderSlider(x + 165, y + 205, 110, "Pitch", vars.misc.customaa, 180, 0);
-    }
-    
-    if(vars.misc.aaY == 16)
-    {
-        if(((!vars.aaX_opend) && !vars.aaY_opend) && !vars.FaaY_opend)
-            this->renderSlider(x + 165, y + 230, 110, "Fake Yaw", vars.misc.fakeyaw, 180, 0);
+    for(int i = 0 ; i < 21; i++) {
+        flRnbw += 0.045f;
         
-        this->renderSlider(x + 165, y + 250, 110, "Real Yaw", vars.misc.realyaw, 180, 0);
+        Color col1 = Color::GetFromHSB(flRnbw, 1.0f, 1.0f);
+        Color col2 = Color::GetFromHSB(flRnbw, 0.90f, 0.90f);
+        Color col3 = Color::GetFromHSB(flRnbw, 0.80f, 0.80f);
+        Color col4 = Color::GetFromHSB(flRnbw, 0.70f, 0.70f);
+        Color col5 = Color::GetFromHSB(flRnbw, 0.60f, 0.60f);
+        Color col6 = Color::GetFromHSB(flRnbw, 0.50f, 0.50f);
+        Color col7 = Color::GetFromHSB(flRnbw, 0.40f, 0.40f);
+        Color col8 = Color::GetFromHSB(flRnbw, 0.30f, 0.30f);
+        Color col9 = Color::GetFromHSB(flRnbw, 0.20f, 0.20f);
+        Color col10 = Color::GetFromHSB(flRnbw, 0.15f, 0.15f);
+        Color col11 = Color::GetFromHSB(flRnbw, 0.10f, 0.10f);
+        
+        draw->fillrgba(x + i * oner, y, oner, oner, Color(col1.r(), col1.g(), col1.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 1, oner, oner, Color(col2.r(), col2.g(), col2.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 2, oner, oner, Color(col3.r(), col3.g(), col3.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 3, oner, oner, Color(col4.r(), col4.g(), col4.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 4, oner, oner, Color(col5.r(), col5.g(), col5.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 5, oner, oner, Color(col6.r(), col6.g(), col6.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 6, oner, oner, Color(col7.r(), col7.g(), col7.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 7, oner, oner, Color(col8.r(), col8.g(), col8.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 8, oner, oner, Color(col9.r(), col9.g(), col9.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 9, oner, oner, Color(col10.r(), col10.g(), col10.b(), 255));
+        draw->fillrgba(x + i * oner, y + oner * 10, oner, oner, Color(col11.r(), col11.g(), col11.b(), 255));
+        
+        int x1 = x + i * oner;
+        int y2 = y + oner * 1;
+        int y3 = y + oner * 2;
+        int y4 = y + oner * 3;
+        int y5 = y + oner * 4;
+        int y6 = y + oner * 5;
+        int y7 = y + oner * 6;
+        int y8 = y + oner * 7;
+        int y9 = y + oner * 8;
+        int y10 = y + oner * 9;
+        int y11 = y + oner * 10;
+        
+        if(draw->inArea(x1, y, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col1;
+                draw->drawbox(x1, y, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y;
+            }
+        } else if(draw->inArea(x1, y2, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col2;
+                draw->drawbox(x1, y2, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y2;
+            }
+        } else if(draw->inArea(x1, y3, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col3;
+                draw->drawbox(x1, y3, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y3;
+            }
+        } else if(draw->inArea(x1, y4, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col4;
+                draw->drawbox(x1, y4, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y4;
+            }
+        } else if(draw->inArea(x1, y5, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col5;
+                draw->drawbox(x1, y5, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y5;
+            }
+        } else if(draw->inArea(x1, y6, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col6;
+                draw->drawbox(x1, y6, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y6;
+            }
+        }
+        else if(draw->inArea(x1, y7, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col7;
+                draw->drawbox(x1, y7, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y7;
+            }
+        }
+        else if(draw->inArea(x1, y8, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col8;
+                draw->drawbox(x1, y8, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y8;
+            }
+        }
+        else if(draw->inArea(x1, y9, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col9;
+                draw->drawbox(x1, y9, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y9;
+            }
+        }
+        else if(draw->inArea(x1, y10, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col10;
+                draw->drawbox(x1, y10, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y10;
+            }
+        }
+        else if(draw->inArea(x1, y11, oner, oner)) {
+            if(pInputSystem->IsButtonDown(MOUSE_LEFT)) {
+                col = col11;
+                draw->drawbox(x1, y11, oner, oner, Color::Black());
+                currPosX = x1;
+                currPosY = y11;
+            }
+        }
     }
     
+    draw->fillrgba(x, y + 73, 5, 20, Color(col.r(), col.g(), col.b(), 255));
+    draw->drawbox(x, y + 73, 5, 20, Color::Black());
     
+    string strPalette;
     
+    strPalette.append("R: ");
+    strPalette.append(to_string(col.r()));
     
+    strPalette.append(" G: ");
+    strPalette.append(to_string(col.g()));
+    
+    strPalette.append(" B: ");
+    strPalette.append(to_string(col.b()));
+    
+    draw->drawstring(x, y - 20, Color::White(), mFont, szString);
+    draw->drawstring(x + 10, y + 78, Color::White(), mFont, strPalette.c_str());
+}
+
+// Tabs
+
+void cMenu::renderAim(int x, int y) {
+    
+    this->renderCheckbox(x, y, "Enabled", &vars.aimbot.enabled);
+    this->renderCheckbox(x, y + 20, "SilentAim", &vars.aimbot.silent);
+    draw->drawstring(x, y + 30, FontColor, mFont, "FOV");
+    this->renderSlider(x, y + 40, 180, "", vars.aimbot.fov, 180, 0);
+    draw->drawstring(x, y + 60, FontColor, mFont, "Hitbox");
+    this->renderSlider(x, y + 70, 180, "Hitbox", vars.aimbot.hitbox, 19, 0);
+    this->renderCheckbox(x, y + 90, "Recoil Control System", &vars.aimbot.rcs);
+    this->renderSlider(x, y + 100, 180, "", vars.aimbot.rcsf, 20, 0);
+    this->renderCheckbox(x, y + 120, "Triggerbot", &vars.aimbot.trigger);
+    
+    this->renderCheckbox(x + 200, y, "Auto Scope", &vars.aimbot.autoscope);
+    this->renderCheckbox(x + 200, y + 20, "Auto Pistol", &vars.aimbot.autopistol);
+    this->renderCheckbox(x + 200, y + 40, "Auto Crouch", &vars.aimbot.autocrouch);
+    this->renderCheckbox(x + 200, y + 60, "Hitscan", &vars.aimbot.hitscan);
+    this->renderCheckbox(x + 200, y + 80, "Auto Wall", &vars.aimbot.autowall);
+    if(vars.aimbot.autowall) {
+    this->renderSlider(x + 200, y + 90, 90, "", vars.aimbot.mindmg, 100, 0);
+    }
+    
+    vector<string> X;
+    vector<string> Y;
+    vector<string> FY;
+    // X
+    X.push_back("Off");
+    X.push_back("Emotion");
+    X.push_back("Up");
+    X.push_back("Custom");
+    // Y
+    Y.push_back("Off");
+    Y.push_back("Backwards");
+    Y.push_back("Jitter");
+    Y.push_back("FakeTroll");
+    Y.push_back("FakeStatic");
+    Y.push_back("FJitter");
+    Y.push_back("SlowSpin");
+    Y.push_back("FastSpin");
+    Y.push_back("RandomBackJitter");
+    Y.push_back("BackJitter");
+    Y.push_back("LowerYaw");
+    Y.push_back("SidewaysLeft");
+    Y.push_back("SidewaysRight");
+    Y.push_back("LBYBreaker");
+    Y.push_back("Skeet");
+    Y.push_back("Icecream");
+    Y.push_back("Custom");
+    // FY
+    FY.push_back("Off");
+    FY.push_back("FakeAngel");
+    FY.push_back("FakeSpin");
+    FY.push_back("FakeLBYHook");
+    FY.push_back("FakeTwoStep");
+    FY.push_back("FakeLowerBody135");
+    FY.push_back("FakeInverseRotation");
+    FY.push_back("FakeJitter");
+    FY.push_back("FakeLBY");
+    FY.push_back("FakeSideLBY");
+    FY.push_back("FakeHead");
+    
+    this->renderCheckbox(x + 300, y, "AntiAim Enabled", &vars.misc.antiaim);
+    this->renderCheckbox(x + 300, y + 20, "Show Real Angles", &vars.misc.thirdpersonmode);
+    this->renderCheckbox(x + 300, y + 40, "Fake", &vars.misc.fakeaa); // 60
+    this->renderCombo(x + 300, y + 60, 125, 20, "Pitch", X, vars.misc.aaX, &vars.aaX_opend); // 80
+    if(!vars.aaX_opend)
+        this->renderCombo(x + 300, y + 80, 125, 20, "Yaw", Y, vars.misc.aaY, &vars.aaY_opend);
+    if(vars.misc.fakeaa) {
+        if((!vars.aaX_opend) && !vars.aaY_opend)
+            this->renderCombo(x + 300, y + 100, 125, 20, "Fake Yaw", FY, vars.misc.FaaY, &vars.FaaY_opend); // 120
+    }
+    if(vars.misc.aaX == 3) {
+            this->renderSlider(x + 300, y + 110, 180, "Pitch", vars.misc.customaa, 90, 0);
+    }
+    
+    if(vars.misc.aaY == 16) {
+            this->renderSlider(x + 301, y + 125, 180, "Real Yaw", vars.misc.realyaw, 180, 0);
+            this->renderSlider(x + 301, y + 135, 180, "Fake Yaw", vars.misc.fakeyaw, 180, 0);
+    }
 }
 
 void cMenu::renderPlayer(int x, int y)
 {
-    draw->drawstring(x + 15, y + 15, FontColor, heading, "Players List");
+    draw->drawstring(x + 15, y + 15, FontColor, mFont, "Players List");
     
     if(!pEngine->IsInGame())
-        draw->drawstring(x + 15, y + 40, MainColor, heading, "Not in game");
+        draw->drawstring(x + 15, y + 40, Color::Red(), mFont, "Not in game");
     
     
     std::vector<std::string> PitchResolver, YawResolver;
@@ -481,18 +498,18 @@ void cMenu::renderPlayer(int x, int y)
         {
             sprintf(plinfo, "Player info for : %s", info.name);
             
-            draw->drawstring(x + 165, y + 25, FontColor, mFont, plinfo);
+            draw->drawstring(x + 265, y + 25, FontColor, mFont, plinfo);
             this->renderCheckbox(x + 265, y + 45, "Resolve", &gCorrections[entity->GetIndex()].resolved);
             this->renderCheckbox(x + 265, y + 65, "Whitelist", &gCorrections[entity->GetIndex()].whitelist);
             this->renderCheckbox(x + 265, y + 85, "bAim", &gCorrections[entity->GetIndex()].baim);
-
-            draw->drawstring(x + 165, y + 95, FontColor, mFont, "Pitch");
-            this->renderCombo(x + 165, y + 105, 125, 20, "Auto", PitchResolver, gCorrections[entity->GetIndex()].dropdown_x, &vars.playerlist_opend_x[entity->GetIndex()]);
+            
+            draw->drawstring(x + 265, y + 95, FontColor, mFont, "Pitch");
+            this->renderCombo(x + 265, y + 105, 125, 20, "Auto", PitchResolver, gCorrections[entity->GetIndex()].dropdown_x, &vars.playerlist_opend_x[entity->GetIndex()]);
             
             if(!vars.playerlist_opend_x[entity->GetIndex()])
             {
-                draw->drawstring(x + 165, y + 115, FontColor, mFont, "Yaw");
-                this->renderCombo(x + 165, y + 125, 125, 20, "Auto", YawResolver, gCorrections[entity->GetIndex()].dropdown_y, &vars.playerlist_opend_y[entity->GetIndex()]);
+                draw->drawstring(x + 265, y + 115, FontColor, mFont, "Yaw");
+                this->renderCombo(x + 265, y + 125, 125, 20, "Auto", YawResolver, gCorrections[entity->GetIndex()].dropdown_y, &vars.playerlist_opend_y[entity->GetIndex()]);
             }
             
         }
@@ -500,8 +517,82 @@ void cMenu::renderPlayer(int x, int y)
     }
 }
 
-void cMenu::renderColors(int x, int y)
-{
+
+void cMenu::renderVis(int x, int y) {
+    
+    this->renderCheckbox(x, y, "Enabled", &vars.visuals.enabled);
+    this->renderCheckbox(x, y + 20, "Enemy only", &vars.visuals.enemyonly);
+    this->renderCheckbox(x, y + 40, "Vis Only", &vars.visuals.visonly);
+    this->renderCheckbox(x, y + 60, "Box", &vars.visuals.box);
+    this->renderCheckbox(x, y + 80, "Name", &vars.visuals.name);
+    this->renderCheckbox(x, y + 100, "Health", &vars.visuals.health);
+    this->renderCheckbox(x, y + 120, "Armour", &vars.visuals.armour);
+    this->renderCheckbox(x, y + 140, "Heath text", &vars.visuals.healthtext);
+    this->renderCheckbox(x, y + 160, "Skeleton", &vars.visuals.skeleton);
+    this->renderCheckbox(x, y + 180, "Snaplines", &vars.visuals.snapline);
+    this->renderCheckbox(x, y + 200, "Defuse ESP", &vars.visuals.defusing);
+    
+    // Left side
+    
+    vector<string> Players;
+    vector<string> Hands;
+    vector<string> Weapons;
+    
+    Players.push_back("Lit");
+    Players.push_back("Texture");
+    Hands.push_back("Lit");
+    Hands.push_back("Texture");
+    Hands.push_back("Wireframe");
+    Weapons.push_back("Lit");
+    Weapons.push_back("Texture");
+    Weapons.push_back("Wireframe");
+    
+    this->renderCheckbox(x + 300, y, "Player Chams", &vars.visuals.chams);
+    this->renderCheckbox(x + 300, y + 20, "Hand Chams", &vars.visuals.handchams);
+    this->renderCheckbox(x + 300, y + 40, "Weapon Chams", &vars.visuals.weaponchams);
+    if(vars.visuals.chams) {
+    this->renderCombo(x + 300, y + 60, 125, 20, "Lit", Players, vars.visuals.playersType, &vars.players_opend);
+    }
+    if(vars.visuals.handchams) {
+    if(!vars.players_opend)
+    this->renderCombo(x + 300, y + 80, 125, 20, "Lit", Hands, vars.visuals.handsType, &vars.hands_opend);
+    }
+    if(vars.visuals.weaponchams) {
+    if((!vars.players_opend) && !vars.hands_opend)
+    this->renderCombo(x + 300, y + 100, 125, 20, "Lit", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
+    }
+}
+
+void cMenu::renderMisc(int x, int y) {
+    
+    this->renderCheckbox(x, y, "Bhop", &vars.misc.bhop);
+    this->renderCheckbox(x, y + 20, "Auto strafe", &vars.misc.autostrafe);
+    this->renderCheckbox(x, y + 40, "Circle Strafe", &vars.misc.cstrafe);
+    this->renderCheckbox(x, y +  60, "FOV Changer", &vars.misc.fovt);
+    this->renderSlider(x, y + 70, 180, "FOV", vars.misc.fov, 70, 0);
+    this->renderCheckbox(x, y + 90, "No recoil", &vars.misc.norecoil);
+    this->renderCheckbox(x, y + 110, "No visual recoil", &vars.misc.novisual);
+    
+    vector<string> FakeLag;
+    
+    FakeLag.push_back("Normal");
+    FakeLag.push_back("Adaptive");
+    
+    //
+    this->renderCheckbox(x + 300, y, "FakeLag", &vars.misc.fakelag);
+    this->renderCombo(x + 300, y + 20, 125, 20, "Normal", FakeLag, vars.misc.fakelagtype, &vars.fakelag_opend);
+    this->renderSlider(x + 300, y + 40, 125, "", vars.misc.fakelagfactor, 16, 0);
+    this->renderCheckbox(x + 300, y + 60, "WorldPaint", &vars.misc.worldpaint);
+    this->renderCheckbox(x + 300, y + 80, "Spec List", &vars.misc.showspectators);
+    this->renderCheckbox(x + 300, y + 100, "Antiscreenshot", &vars.misc.antiscreenshot);
+    this->renderCheckbox(x + 300, y + 120, "Anti untrust", &vars.misc.antiuntrust);
+
+    
+    
+}
+
+void cMenu::renderColors(int x, int y) {
+    
     vector<string> Colors;
     
     Colors.push_back("CT Colours");
@@ -509,184 +600,149 @@ void cMenu::renderColors(int x, int y)
     Colors.push_back("Hand/Weapon Colours");
     Colors.push_back("World Colours");
     
-    this->renderCombo(x + 15, y + 10, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
+    this->renderCombo(x + 200, y + 22 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
+
     
-    
-    if(vars.colors.combo == 0)
-    {
-        // Box
-        draw->drawcolorpicker(x + 145, y + 25, "CT Box", vars.colors.ctbox);
-        draw->drawcolorpicker(x + 145, y + 160, "CT Box ignore", vars.colors.ctbox_ign);
-        
-        // Chams
-        draw->drawcolorpicker(x + 290, y + 25, "CT Chams", vars.colors.ctchams);
-        draw->drawcolorpicker(x + 290, y + 160, "CT Chams ignore", vars.colors.ctchams_ign);
+    if(vars.colors.combo == 0) {
+        this->drawcolorpicker(x, y + 20, "CT Box", vars.colors.ctbox);
+        this->drawcolorpicker(x, y + 150, "CT BoxIgn", vars.colors.ctbox_ign);
+        this->drawcolorpicker(x + 350, y + 20, "CT Chams", vars.colors.ctchams);
+        this->drawcolorpicker(x + 350, y + 150, "CT ChamIgn", vars.colors.ctchams_ign);
     }
-    
-    if(vars.colors.combo == 1)
-    {
-        // Box
-        draw->drawcolorpicker(x + 145, y + 25, "T Box", vars.colors.tbox);
-        draw->drawcolorpicker(x + 145, y + 160, "T Box ignore", vars.colors.tbox_ign);
-        
-        // Chams
-        draw->drawcolorpicker(x + 290, y + 25, "T Chams", vars.colors.tchams);
-        draw->drawcolorpicker(x + 290, y + 160, "T Chams ignore", vars.colors.tchams_ign);
+    if(vars.colors.combo == 1) {
+        this->drawcolorpicker(x, y + 20, "T Box", vars.colors.tbox);
+        this->drawcolorpicker(x, y + 150, "T BoxIgn", vars.colors.tbox_ign);
+        this->drawcolorpicker(x + 350, y + 20, "T Chams", vars.colors.tchams);
+        this->drawcolorpicker(x + 350, y + 150, "T ChamIgn", vars.colors.tchams_ign);
     }
-    
-    if(vars.colors.combo == 2)
-    {
-        vector<string> handsvector;
-        vector<string> weaponsvector;
-        
-        handsvector.push_back("Lit");
-        handsvector.push_back("Texture");
-        handsvector.push_back("Wireframe");
-        weaponsvector.push_back("Lit");
-        weaponsvector.push_back("Texture");
-        weaponsvector.push_back("Wireframe");
-        
-        draw->drawcolorpicker(x + 145, y + 25, "Hands", vars.colors.hands);
-        draw->drawcolorpicker(x + 290, y + 25, "Weapon", vars.colors.weapon);
-        
-        this->renderCheckbox(x + 245, y + 145, "Hand Chams", &vars.visuals.handchams);
-        this->renderCombo(x + 145, y + 160, 120, 20, "Lit", handsvector, vars.visuals.handsType, &vars.hands_opend);
-        
-        this->renderCheckbox(x + 390, y + 145, "Weapon Chams", &vars.visuals.weaponchams);
-        this->renderCombo(x + 290, y + 160, 120, 20, "Lit", weaponsvector, vars.visuals.weaponType, &vars.weapons_opend);
+    if(vars.colors.combo == 2) {
+        this->drawcolorpicker(x, y + 20, "Hands", vars.colors.hands);
+        this->drawcolorpicker(x + 350, y + 20, "Weapon", vars.colors.weapon);
     }
-    
-    if(vars.colors.combo == 3)
-    {
-        draw->drawcolorpicker(x + 145, y + 25, "World", vars.colors.world);
-        draw->drawcolorpicker(x + 290, y + 25, "Sky", vars.colors.sky);
+    if(vars.colors.combo == 3) {
+        this->drawcolorpicker(x, y + 20, "World", vars.colors.world);
+        this->drawcolorpicker(x + 350, y + 20, "Sky", vars.colors.sky);
     }
     
 }
 
-//=======================Menu==========================//
-
-void cMenu::renderMenu()
+// Menu tabs
+enum mTab
 {
-    int wScreen, hScreen;
-    pEngine->GetScreenSize(wScreen, hScreen);
+    Main    = 0,
+    AimTab  = 1,
+    PlayerTab   = 2,
+    VisTab  = 3,
+    MiscTab = 4,
+    ColorsTab = 5
+};
+
+static int curTab = mTab::AimTab;
+
+// This is where the menu is "put together"
+void cMenu::renderMenu() {
     
-    // Tab menu measurements
     static int x = 100;
     static int y = 100;
-    int w = 400;
-    int h = 260;
-    int hh = 10;
-    tab.w = 60;
-    tab.h = 52;
-    
-    if((vars.colors.combo != 4) && tab.tab == 5)
-        w = 500;
-    
-    
-    draw->RectOutlined(x, y, w, h, 1, ControlColor, MainColor);
-    draw->drawline(x + 60, y , x + 60, y + h, MainColor);
-    
-    if(tab.tab != 1)
-    {
-        draw->drawstring(x + 15, y + 10, inactive, osFont, "A");
-        draw->drawstring(x + 12, y + 38, inactive, tFont, "Aimbot");
-    }
-    
-    if(tab.tab != 2)
-    {
-        draw->drawstring(x + 13, y + 62, inactive, osFont, "B");
-        draw->drawstring(x + 11, y + 89, inactive, tFont, "Visuals");
-    }
-    
-    if(tab.tab != 3)
-    {
-        draw->drawstring(x + 15, y + 114, inactive, osFont, "C");
-        draw->drawstring(x + 17, y + 142, inactive, tFont, "Misc");
-    }
-    
-    if(tab.tab != 4)
-    {
-        draw->drawstring(x + 17, y + 166, inactive, osFont, "D");
-        draw->drawstring(x + 12, y + 195, inactive, tFont, "Players");
-    }
-    
-    if(tab.tab != 5)
-    {
-        draw->drawstring(x + 13, y + 218, inactive, osFont, "G");
-        draw->drawstring(x + 10, y + 245, inactive, tFont, "Colours");
-    }
-    
-    
-    if(draw->inArea(x, y, tab.w, tab.h) && WasReleased)
-        tab.tab = mTab::AimTab;
-    
-    if(draw->inArea(x, y + 52, tab.w, tab.h) && WasReleased)
-        tab.tab = mTab::VisTab;
-    
-    if(draw->inArea(x, y + 104, tab.w, tab.h) && WasReleased)
-        tab.tab = mTab::MiscTab;
-    
-    if(draw->inArea(x, y + 156, tab.w, tab.h) && WasReleased)
-        tab.tab = mTab::PlayerTab;
-    
-    if(draw->inArea(x, y + 208, tab.w, tab.h) && WasReleased)
-        tab.tab = mTab::ColorsTab;
+    int w = 500;
+    int h = 300;
+    int hh = 22; // The height of the dragable area
     
     
     
-    if(tab.tab == 1)
-    {
-        draw->fillrgba(x, y, tab.w, tab.h, MainColor);                      // Background when selected
-        draw->drawstring(x + 15, y + 10, ControlColor, osFont, "A");
-        draw->drawstring(x + 12, y + 38, ControlColor, tFont, "Aimbot");
+    draw->RectOutlined(x, y, w, h, 1, Color(40, 40, 40, 255), Color(20, 20, 20, 255));
+    draw->fillrgba(x + 2, y + 2, w - 4, 20, Color(50, 50, 50, 255));
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "Barbossa", true);
+    
+    // Draws tabs
+    draw->RectOutlined(x + 2, y + 22 + 5, 96, 20, 1, Color(50, 50, 50, 255), Color::Black());
+    draw->RectOutlined(x + 102, y + 22 + 5, 96, 20, 1, Color(50, 50, 50, 255), Color::Black());
+    draw->RectOutlined(x + 202, y + 22 + 5, 96, 20, 1, Color(50, 50, 50, 255), Color::Black());
+    draw->RectOutlined(x + 302, y + 22 + 5, 96, 20, 1, Color(50, 50, 50, 255), Color::Black());
+    draw->RectOutlined(x + 402, y + 22 + 5, 96, 20, 1, Color(50, 50, 50, 255), Color::Black());
+    
+    
+    // Handles tabs
+    if(draw->inArea(x + 2, y + 27, 96, 20)) {
         
-        this->renderAim(x + 60, y);
-    }
-    
-    if(tab.tab == 2)
-    {
-        draw->fillrgba(x, y + 52, tab.w, tab.h, MainColor);                      // Background when selected
-        draw->drawstring(x + 13, y + 62, ControlColor, osFont, "B");
-        draw->drawstring(x + 11, y + 89, ControlColor, tFont, "Visuals");
+        draw->RectOutlined(x + 2, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color::Black());
         
-        this->renderVis(x + 60, y);
-    }
-    
-    if(tab.tab == 3)
-    {
-        draw->fillrgba(x, y + 104, tab.w, tab.h, MainColor);                      // Background when selected
-        draw->drawstring(x + 15, y + 114, ControlColor, osFont, "C");
-        draw->drawstring(x + 17, y + 142, ControlColor, tFont, "Misc");
+        if(WasReleased)
+            curTab = mTab::AimTab;
         
-        this->renderMisc(x + 60, y);
-    }
-    
-    if(tab.tab == 4)
-    {
-        draw->fillrgba(x, y + 156, tab.w, tab.h, MainColor);                      // Background when selected
-        draw->drawstring(x + 17, y + 166, ControlColor, osFont, "D");
-        draw->drawstring(x + 12, y + 195, ControlColor, tFont, "Players");
+    } else if(draw->inArea(x + 102, y + 27, 96, 20)) {
         
-        this->renderPlayer(x + 60, y);
-    }
-    
-    if(tab.tab == 5)
-    {
-        draw->fillrgba(x, y + 208, tab.w, tab.h, MainColor);                      // Background when selected
-        draw->drawstring(x + 13, y + 218, ControlColor, osFont, "G");
-        draw->drawstring(x + 10, y + 245, ControlColor, tFont, "Colours");
+        draw->RectOutlined(x + 102, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color::Black());
         
-        this->renderColors(x + 60, y);
+        if(WasReleased)
+            curTab = mTab::PlayerTab;
+        
+    } else if(draw->inArea(x + 202, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 202, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::VisTab;
+        
+    } else if(draw->inArea(x + 302, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 302, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::MiscTab;
+        
+    } else if(draw->inArea(x + 402, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 402, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::ColorsTab;
+        
     }
     
     
+    switch (curTab) {
+            
+        case mTab::AimTab:
+            draw->RectOutlined(x + 2, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color(150, 150, 150, 255));
+            this->renderAim(x + 2 + 5, y + 27 + 20 + 5);
+            break;
+            
+        case mTab::PlayerTab:
+            draw->RectOutlined(x + 102, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color(150, 150, 150, 255));
+            this->renderPlayer(x + 2 + 5, y + 27 + 20 + 5);
+            break;
+            
+        case mTab::VisTab:
+            draw->RectOutlined(x + 202, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color(150, 150, 150, 255));
+            this->renderVis(x + 2 + 5, y + 27 + 20 + 5);
+            break;
+            
+        case mTab::MiscTab:
+            draw->RectOutlined(x + 302, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color(150, 150, 150, 255));
+            this->renderMisc(x + 2 + 5, y + 27 + 20 + 5);
+            break;
+            
+        case mTab::ColorsTab:
+            draw->RectOutlined(x + 402, y + 22 + 5, 96, 20, 1, Color(35, 35, 35, 255), Color(150, 150, 150, 255));
+            this->renderColors(x + 2 + 5, y + 27 + 20 + 5);
+            break;
+            
+        default:
+            break;
+            
+    }
     
-    if(col.menu == 0)
-        MainColor = Color(255, 0, 0, 255);
-
+    
+    // Render strings last so they're on top
+    draw->drawstring(x + 50, y + 22 + 14, FontColor, mFont, "Aimbot", true);
+    draw->drawstring(x + 150, y + 22 + 14, FontColor, mFont, "Players", true);
+    draw->drawstring(x + 250, y + 22 + 14, FontColor, mFont, "Visuals", true);
+    draw->drawstring(x + 350, y + 22 + 14, FontColor, mFont, "Misc", true);
+    draw->drawstring(x + 450, y + 22 + 14, FontColor, mFont, "Colors", true);
     
     
-    draw->MoveMenu(x, y, w, hh, 0);    // Drag tabs menu
     Pressed(MOUSE_LEFT);
+    draw->MoveMenu(x, y, w, hh, 1);
+    
 }
