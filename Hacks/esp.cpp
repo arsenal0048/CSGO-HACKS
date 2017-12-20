@@ -104,18 +104,17 @@ void DrawPlayerESP()
         if(DrawPlayerBox(entity, players))
         {
             
-            
             if(vars.visuals.box)
                 draw->drawboxoutline(players.x, players.y, players.w, players.h, playercolor);
-                    
+            
             if(vars.visuals.name)
-                draw->drawstring(players.x + players.w / 2, players.y - 12, Color::White(), espfont, info.name, true);
-                            
+                draw->drawstring(players.x + players.w / 2, players.y - 12, Color::White(), eFont, info.name, true);
+            
             if(vars.visuals.healthtext)
-                draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetHealth()).c_str(), true);
+                draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), eFont, std::to_string(entity->GetHealth()).c_str(), true);
             
             if(vars.visuals.health)
-                DrawHealthbar(players.x - 5, players.y, 3, players.h, entity->GetHealth(), Color(43, 206, 91, 255));
+                DrawHealthbar(players.x - 5, players.y, 3, players.h, entity->GetHealth(), Color::Green());
             
             if(vars.visuals.armour)
                 DrawHealthbar(players.x, players.y + players.h + 3, players.w, 2, entity->GetArmor(), Color(72, 136, 189, 255));
@@ -126,20 +125,20 @@ void DrawPlayerESP()
             if(vars.visuals.skeleton)
                 DrawSkeleton(entity, Color::White());
             
-            if(entity->IsDefusing())
-                draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "DEFUSING", true);
+                if(entity->IsDefusing())
+                    draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), eFont, "DEFUSING", true);
             
-            if(entity->IsGrabbingHostage())
-                draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "RESCUING", true);
+                if(entity->IsGrabbingHostage())
+                    draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), eFont, "RESCUING", true);
             
-            if(entity->IsRescuing())
-                draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "CARRYING", true);
+                if(entity->IsRescuing())
+                    draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), eFont, "CARRYING", true);
             
-            if((entity->IsScoped()))
-                draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPED", true);
-
+                if((entity->IsScoped()))
+                    draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), eFont, "SCOPED", true);
+            
         }
-    
+        
     }
     
 }
@@ -152,6 +151,7 @@ void pwnmymenu()
     if(pInputSystem->IsButtonDown(KEY_INSERT))
     {
         vars.menu = !vars.menu;
-        }
-    
     }
+    
+}
+
