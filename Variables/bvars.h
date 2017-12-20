@@ -48,7 +48,6 @@ public:
         
         int  fov         = 20;          // Aimbot Fov
         int  hitbox      = 0;           // Hitbox
-        int  hitboxType  = 0;           // Hitbox for combo
         
         int  pointscale  = 0;           // Pointscale
         bool trigger    = true;         // Will shoot when an enemy is in your crosshair
@@ -88,6 +87,7 @@ public:
         bool skeleton   = false;        // Skeleton ESP
         bool snapline   = false;        // Snaplines obv
         bool cash       = false;        // Cash ESP
+        bool bomb       = false;        // Bomb Timer
         bool dlights    = false;        // Dlight 
         bool rcrosshair = false;        // Recoil Crosshair (Shows but doesn't move)
         
@@ -142,7 +142,6 @@ public:
         bool showspectators = false;    // Spectator List
         
         bool antiaim        = false;    // Anti aims / "spinbot"
-        bool knifeaa        = false;    // Disables anti aim when knife or bomb is in hand
         bool thirdpersonmode= false;    // Thirdperson
         bool attargets      = false;    // AtTargets ofc
         bool fakeaa         = false;    // Fake anti aim
