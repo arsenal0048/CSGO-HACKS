@@ -530,7 +530,6 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x, y + 140, "Heath text", &vars.visuals.healthtext);
     this->renderCheckbox(x, y + 160, "Skeleton", &vars.visuals.skeleton);
     this->renderCheckbox(x, y + 180, "Snaplines", &vars.visuals.snapline);
-    this->renderCheckbox(x, y + 200, "Defuse ESP", &vars.visuals.defusing);
     
     // Left side
     
