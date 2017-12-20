@@ -179,7 +179,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
         ChangeName(draw->m_szChangedValue[2].c_str());
         
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
-        SetClanTag(draw->m_szChangedValue[3].c_str(), "Barbossa");
+        SetClanTag(draw->m_szChangedValue[3].c_str(), "Xanax");
     
 }
 
