@@ -8,18 +8,14 @@ public:
     bool aaY_opend;
     bool aaX_opend;
     bool FaaY_opend;
-    
     // Chams
     bool hands_opend;
     bool weapons_opend;
     bool players_opend;
-
     // Menu
     bool colors_opend;
-    
     // Misc
     bool fakelag_opend;
-    
     // For aa corrections
     bool playerlist_opend_x[64];
     bool playerlist_opend_y[64];
@@ -43,28 +39,19 @@ public:
     public:
         
         bool enabled    = false;        // Enable
-        
         bool silent     = false;        // Silent Aim ob
-        
         int  fov         = 20;          // Aimbot Fov
         int  hitbox      = 0;           // Hitbox
-        
         int  pointscale  = 0;           // Pointscale
         bool trigger    = true;         // Will shoot when an enemy is in your crosshair
-        
         bool prediction = false;        // Player prediction
-        bool selfpred   = false;        // Self prediction
-        
         bool autowall   = false;        // Shoots through walls if calulated damage is higher than set amount
         int  mindmg      = 20;          // Autowall min damage
         bool hitscan    = false;        // Hitscan
-        
         bool autoshoot  = false;        // Shoots for you
         bool autoscope  = false;        // Autoscope
         bool autopistol = false;        // Pistol is like AK
         bool autocrouch = false;        // Crouch when something is in fov
-        bool autostop   = false;        // Stops when something is in fov
-                
         bool rcs        = false;        // Recoil control system
         int rcsf        = 0;            // Recoil control
 
@@ -75,10 +62,8 @@ public:
     public:
         
         bool enabled    = false;        // Enable
-        
         bool enemyonly  = false;        // Enemy only
         bool visonly    = false;        // Visual only
-        
         bool box        = false;        // Box ESP
         bool name       = false;        // Name ESP
         bool health     = false;        // Health Bar
@@ -86,16 +71,17 @@ public:
         bool armour     = false;        // Armour Bar
         bool skeleton   = false;        // Skeleton ESP
         bool snapline   = false;        // Snaplines obv
-        bool cash       = false;        // Cash ESP
-        bool bomb       = false;        // Bomb Timer
-        bool dlights    = false;        // Dlight 
+        bool dlights    = false;        // Dlight
         bool rcrosshair = false;        // Recoil Crosshair (Shows but doesn't move)
-        
+        bool scrosshair = false;        // Sniper Crosshair
+        bool defusing   = false;        // Defusing ESP
+        bool rescuing   = false;        // Hostage rescue and carrying esp
+        bool scoped     = false;        // Scoped ESP
+
         // Chams
         bool chams      = false;        // Player Chams
         bool handchams  = true;         // Handchams obv
         bool weaponchams= true;         // Weapon chams obv
-        
         int weaponType  = 1;            // Weapon Type 0 - Lit 1 - Texture 2 - Wireframe
         int handsType   = 1;            // Hand   Type 0 - Lit 1 - Texture 2 - Wireframe
         int playersType = 0;            // Player Type 0 - Lit 1 - Texture
@@ -111,17 +97,14 @@ public:
     public:
         
         bool enabled        = true;     // Enabled
-        
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
-        
         bool norecoil       = false;    // Basically RCS without slider
         bool novisual       = false;    // No visual recoil ofc
-        
         bool bhop           = false;    // BunnyHop
         bool autostrafe     = false;    // Strafes for you ofc
         bool cstrafe        = false;    // Circle strafes
         bool airstuck       = false;    // Airstuck
-        
+        bool fovt           = false;    // Fov Changer Enabled
         int fov             = 10;       // FOV changer
         bool clantag        = false;    // Clantag changer
         bool showrank       = true;     // Show everyboys rank in MM
@@ -132,15 +115,14 @@ public:
         
         bool fakelag        = false;    // Fake lag enable (WIP)
         int fakelagfactor   = 0;        // Fake Lag (WIP)
-        int fakelagmode     = 0;        // 0 Normal - 1 Adaptive
+        int fakelagtype     = 0;        // 0 Normal - 1 Adaptive
         bool adaptive       = false;    //
-        
+    
         bool worldpaint     = false;    // World Paint
         bool changesky      = false;    // Changes Sky
-        
         bool antiscreenshot = false;    // Anti screenshot
         bool showspectators = false;    // Spectator List
-        
+        // AntiAim
         bool antiaim        = false;    // Anti aims / "spinbot"
         bool thirdpersonmode= false;    // Thirdperson
         bool attargets      = false;    // AtTargets ofc
@@ -178,7 +160,6 @@ public:
         Color scope;
         Color sky;
         Color world;
-        Color crosshair;
         
     }colors;
     
