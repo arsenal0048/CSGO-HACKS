@@ -22,15 +22,10 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
     {
         if(strstr(pPanel->GetName(panel), "FocusOverlayPanel"))
         {
-            espfont     = draw->createfont(espfont, "Tahoma", 12, FONTFLAG_DROPSHADOW);      // Use for ESP
-            specfont    = draw->createfont(specfont, "Tahoma", 12, FONTFLAG_OUTLINE);        // Used for spectatorwindow
-
-            mFont       = draw->createfont(mFont, "Tahoma", 11, FONTFLAG_DROPSHADOW);        // Used for checkboxes
-            sFont       = draw->createfont(sFont, "Verdana", 11, FONTFLAG_OUTLINE);          // Used for sliders
-            tFont       = draw->createfont(tFont, "Verdana", 11, FONTFLAG_ANTIALIAS);        // Used for tabs
-            heading     = draw->createfont(heading, "Tahoma", 13, FONTFLAG_OUTLINE);         // Used for headings
-            osFont      = draw->createfont(osFont, "osmiummenufont", 35, FONTFLAG_ANTIALIAS);// Used for icons
-            cFont       = draw->createfont(cFont, "Tahoma", 12, FONTFLAG_NONE);              // Used for combos and buttons
+            specfont    = draw->createfont(specfont, "Tahoma", 12, FONTFLAG_OUTLINE);   // Used for spectatorwindow
+            mFont       = draw->createfont(mFont, "Tahoma", 14, FONTFLAG_NONE);         // Menu font
+            eFont       = draw->createfont(eFont, "Verdana", 12, FONTFLAG_DROPSHADOW);  // ESP font
+            sFont       = draw->createfont(sFont, "Verdana", 11, FONTFLAG_OUTLINE);     // Used for sliders
             
             last = panel;
         }
