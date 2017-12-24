@@ -73,6 +73,10 @@ public:
         bool snapline   = false;        // Snaplines obv
         bool dlights    = false;        // Dlight
         bool rcrosshair = false;        // Recoil Crosshair (Shows but doesn't move)
+        bool scrosshair = false;        // Sniper Crosshair
+        bool defusing   = false;        // Defusing ESP
+        bool rescuing   = false;        // Hostage rescue and carrying esp
+        bool scoped     = false;        // Scoped ESP
 
         // Chams
         bool chams      = false;        // Player Chams
